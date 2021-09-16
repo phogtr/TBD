@@ -1,18 +1,17 @@
-import bcrypt from "bcrypt";
+import { genSalt, hashSync } from "bcrypt";
 import { Request, Response } from "express";
 import pool from "../db/pool";
 
-export async function registerUserHandler(req: Request, res: Response) {
+export async function userRegisterHandler(req: Request, res: Response) {
+  const { username, email, password } = req.body;
   try {
-    const { username, user_email, user_password } = req.body;
-
     const saltNum = +process.env.SALT_NUM!;
-    const salt = await bcrypt.genSalt(saltNum);
-    const hashPassword = bcrypt.hashSync(user_password, salt);
+    const salt = await genSalt(saltNum);
+    const hashPassword = hashSync(password, salt);
 
     const newUser = await pool.query(
       "INSERT INTO users (username, user_email, user_password) VALUES($1, $2, $3) RETURNING user_id, username, user_email",
-      [username, user_email, hashPassword]
+      [username, email, hashPassword]
     );
 
     return res.json(newUser.rows[0]);
