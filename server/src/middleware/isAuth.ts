@@ -12,8 +12,7 @@ const isAuth = async (req: Request, res: Response, next: NextFunction) => {
   const { payload } = verifyAccessToken(token);
 
   if (payload) {
-    // @ts-ignore
-    req.user = payload;
+    (req as any).user = payload;
   } else if (payload === null) {
     return res.sendStatus(403);
   }

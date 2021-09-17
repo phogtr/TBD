@@ -4,8 +4,7 @@ import isAuth from "../middleware/isAuth";
 
 export default function (app: Express) {
   app.get("/auth", isAuth, async (req, res) => {
-    // @ts-ignore
-    res.send(`id: ${req.user.userId}`);
+    res.send(`id: ${(req as any).user.userId}`);
   });
 
   app.post("/api/register", userRegisterHandler);
