@@ -1,4 +1,6 @@
+import dotenv from "dotenv";
 import { sign, verify } from "jsonwebtoken";
+dotenv.config();
 
 const privateAccessToken = process.env.ACCESS_TOKEN_SECRET!;
 const privateRefreshToken = process.env.REFRESH_TOKEN_SECRET!;
@@ -16,6 +18,19 @@ export function createRefreshToken(payload: Object) {
 export function verifyAccessToken(token: string) {
   try {
     const decoded = verify(token, privateAccessToken);
+    return {
+      payload: decoded,
+    };
+  } catch (error) {
+    return {
+      payload: null,
+    };
+  }
+}
+
+export function verifyRefreshToken(token: string) {
+  try {
+    const decoded = verify(token, privateRefreshToken);
     return {
       payload: decoded,
     };

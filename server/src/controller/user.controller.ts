@@ -2,9 +2,12 @@ import { compare, genSalt, hashSync } from "bcrypt";
 import { Request, Response } from "express";
 import pool from "../db/pool";
 import { createAccessToken, createRefreshToken } from "../utils/jwt.utils";
+import { setRefreshToken } from "../utils/setRefreshToken";
 
 export const userRegisterHandler = async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
+  const { username, email, password }: { username: string; email: string; password: string } =
+    req.body;
+
   try {
     const saltNum = +process.env.SALT_NUM!;
     const salt = await genSalt(saltNum);
@@ -43,7 +46,7 @@ export const userLoginHandler = async (req: Request, res: Response) => {
   }
 
   const refreshToken = createRefreshToken({ userId: user.rows[0].user_id });
-  res.cookie("refreshToken", refreshToken, { httpOnly: true });
+  setRefreshToken(res, refreshToken);
 
   const accessToken = createAccessToken({ userId: user.rows[0].user_id });
   return res.send({ accessToken });
