@@ -18,7 +18,7 @@ export const userRegisterHandler = async (req: Request, res: Response) => {
       [username, email, hashPassword]
     );
 
-    return res.send(res.json(newUser.rows[0]));
+    return res.json(newUser.rows[0]);
   } catch (error) {
     return res.status(400).send({
       errorMessage: "Email has already been used. Please enter a different one",
