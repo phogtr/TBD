@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import pool from "../db/pool";
 import { createAccessToken, createRefreshToken, verifyRefreshToken } from "../utils/jwt.utils";
-import { setRefreshToken } from "../utils/setRefreshToken";
+import { setCookies } from "../utils/setCookies";
 
 export const refreshTokenHandler = async (req: Request, res: Response) => {
   const token = req.cookies.refreshToken;
@@ -23,9 +23,10 @@ export const refreshTokenHandler = async (req: Request, res: Response) => {
   }
 
   const refreshToken = createRefreshToken({ userId: user.rows[0].user_id });
-  setRefreshToken(res, refreshToken);
+  setCookies(res, "refreshToken", refreshToken);
 
-  return res
-    .status(200)
-    .send({ valid: true, accessToken: createAccessToken({ userId: user.rows[0].user_id }) });
+  const accessToken = createAccessToken({ userId: user.rows[0].user_id });
+  setCookies(res, "accessToken", accessToken);
+
+  return res.status(200).send({ valid: true, accessToken });
 };
