@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Meta } from "../components/Meta";
 import { server } from "../config";
+import { useAuth } from "../context/UserContext";
 
 interface ILoginBody {
   email: string;
@@ -13,6 +14,7 @@ interface IloginProps {}
 const Login: React.FC<IloginProps> = ({}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useAuth();
 
   return (
     <div>
@@ -30,6 +32,7 @@ const Login: React.FC<IloginProps> = ({}) => {
               withCredentials: true,
             });
             console.log(res.data);
+            setUser(res.data);
           } catch (error) {
             console.log(error);
           }
