@@ -1,8 +1,8 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Meta } from "../components/Meta";
 import { server } from "../config";
-import { useAuth } from "../context/UserContext";
 
 interface ILoginBody {
   email: string;
@@ -14,7 +14,7 @@ interface IloginProps {}
 const Login: React.FC<IloginProps> = ({}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser } = useAuth();
+  const router = useRouter();
 
   return (
     <div>
@@ -28,11 +28,11 @@ const Login: React.FC<IloginProps> = ({}) => {
             password,
           };
           try {
-            const res = await axios.post(`${server}/api/login`, loginBody, {
+            await axios.post(`${server}/api/login`, loginBody, {
               withCredentials: true,
             });
-            console.log(res.data);
-            setUser(res.data);
+            // console.log(res.data);
+            router.push("/");
           } catch (error) {
             console.log(error);
           }
