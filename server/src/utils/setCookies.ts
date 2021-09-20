@@ -1,5 +1,5 @@
-import { Response } from "express";
+import { CookieOptions, Response } from "express";
 
-export const setCookies = (res: Response, name: string, token: string) => {
-  res.cookie(name, token, { httpOnly: true });
+export const setCookies = (res: Response, name: string, token: string, options: CookieOptions) => {
+  res.cookie(name, token, options);
 };

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import pool from "../db/pool";
+import { accessTokenCookieOptions, refreshTokenCookieOptions } from "../utils/cookieOptions";
 import { createAccessToken, createRefreshToken, verifyRefreshToken } from "../utils/jwt.utils";
 import { setCookies } from "../utils/setCookies";
 
@@ -23,10 +24,10 @@ export const refreshTokenHandler = async (req: Request, res: Response) => {
   }
 
   const refreshToken = createRefreshToken({ userId: user.rows[0].user_id });
-  setCookies(res, "refreshToken", refreshToken);
+  setCookies(res, "refreshToken", refreshToken, refreshTokenCookieOptions);
 
   const accessToken = createAccessToken({ userId: user.rows[0].user_id });
-  setCookies(res, "accessToken", accessToken);
+  setCookies(res, "accessToken", accessToken, accessTokenCookieOptions);
 
   return res.status(200).send({ valid: true, accessToken });
 };
