@@ -5,7 +5,7 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <UserProvider>
+    <UserProvider initialUser={pageProps?.user}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
