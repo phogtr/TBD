@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Meta } from "../components/Meta";
-import { server } from "../config";
+import axios from "../lib/axios";
 
 interface ILoginBody {
   email: string;
@@ -28,9 +27,7 @@ const Login: React.FC<IloginProps> = ({}) => {
             password,
           };
           try {
-            await axios.post(`${server}/api/login`, loginBody, {
-              withCredentials: true,
-            });
+            await axios.post("/api/login", loginBody);
             // console.log(res.data);
             router.push("/");
           } catch (error) {

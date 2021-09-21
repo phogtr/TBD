@@ -1,7 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Meta } from "../components/Meta";
-import { server } from "../config";
+import axios from "../lib/axios";
 
 interface IRegisterBody {
   username: string;
@@ -29,7 +28,7 @@ const Register: React.FC<IregisterProps> = ({}) => {
             password,
           };
           try {
-            const res = await axios.post(`${server}/api/register`, registerBody);
+            const res = await axios.post("/api/register", registerBody);
             console.log(res.data);
           } catch (error) {
             console.log(error);

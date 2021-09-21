@@ -1,8 +1,7 @@
-import axios from "axios";
 import { GetServerSideProps } from "next";
 import React from "react";
-import { server } from "../../config";
 import { useAuth } from "../../context/user.context";
+import axios from "../../lib/axios";
 
 interface ISSRProps {}
 
@@ -20,12 +19,12 @@ export default SSR;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { req } = context;
   try {
-    const { data } = await axios.get(`${server}/auth`, {
+    const { data } = await axios.get("/auth", {
       headers: {
         cookie: req.headers.cookie,
       },
     });
-    console.log(data);
+    // console.log(data);
     const authUser = {
       userId: data,
     };

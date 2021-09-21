@@ -1,16 +1,15 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
-import { server } from "../config";
+import axios from "./axios";
 
 const refreshingToken = async () => {
-  await axios.post(`${server}/refresh-token`, undefined, { withCredentials: true });
+  await axios.post("/refresh-token", undefined);
 };
 
 const requestAuthUser = async (url: string) => {
   try {
-    const res = await axios.get(url, { withCredentials: true });
+    const res = await axios.get(url);
     const authUser = {
       userId: res.data,
     };
@@ -37,7 +36,7 @@ const fetcher = async (url: string) => {
 };
 
 export const useUser = ({ redirecTo = "", redirecIfFound = false }) => {
-  const { data, mutate } = useSWR(`${server}/auth`, fetcher);
+  const { data, mutate } = useSWR("/auth", fetcher);
   const router = useRouter();
 
   useEffect(() => {
