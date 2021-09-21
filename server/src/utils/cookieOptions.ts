@@ -1,7 +1,7 @@
 import { CookieOptions } from "express";
 
 enum TokenExpiration {
-  Access = 60, // 1 min
+  Access = 60 * 60, // 1 hour
   Refresh = 60 * 60 * 24 * 7, // 7 days
 }
 

@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import useSWR from "swr";
 import { server } from "../config";
 
-const fetcher = async (url: string) => {
+const refreshingToken = async () => {
+  await axios.post(`${server}/refresh-token`, undefined, { withCredentials: true });
+};
+
+const requestAuthUser = async (url: string) => {
   try {
     const res = await axios.get(url, { withCredentials: true });
     const authUser = {
@@ -12,7 +16,22 @@ const fetcher = async (url: string) => {
     };
     return authUser;
   } catch (error) {
-    console.log(error);
+    throw error;
+  }
+};
+
+const fetcher = async (url: string) => {
+  try {
+    return await requestAuthUser(url);
+  } catch (error) {
+    if ((error as any)?.response?.status === 401) {
+      try {
+        await refreshingToken();
+        return await requestAuthUser(url);
+      } catch (err2) {
+        throw err2;
+      }
+    }
     throw error;
   }
 };

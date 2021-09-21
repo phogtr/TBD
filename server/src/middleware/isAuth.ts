@@ -8,7 +8,7 @@ const isAuth = async (req: Request, res: Response, next: NextFunction) => {
   if (payload) {
     (req as any).user = payload;
   } else if (payload === null) {
-    return res.sendStatus(403);
+    return res.sendStatus(401);
   }
 
   return next();
