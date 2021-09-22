@@ -37,15 +37,17 @@ const getAuthUser = async (req: IncomingMessage, res: ServerResponse) => {
         const authUser = await requestAuthUser(req);
         return authUser;
       } catch (err2) {
-        // both cookies are not in the header => undefined error from axios
+        // unexpected error here
         console.log(err2);
       }
     }
+    // else ... console.log(error) here
+    // both cookies are not in the header => undefined error from axios
     return null;
   }
 };
 
-export const withAuthUser = (inner: Function) => {
+export const withAuthUser = (inner?: Function) => {
   return async (context: GetServerSidePropsContext) => {
     const { req, res } = context;
     const authUser = await getAuthUser(req, res);
@@ -54,6 +56,6 @@ export const withAuthUser = (inner: Function) => {
       return { props: {} };
     }
 
-    return inner ? inner(authUser) : { props: { user: authUser } };
+    return inner ? inner(context, authUser) : { props: { user: authUser } };
   };
 };

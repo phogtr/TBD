@@ -1,9 +1,13 @@
 import Link from "next/link";
 import React from "react";
 
-interface INavProps {}
+interface INavbarProps {
+  authUser?: {
+    userId: string;
+  };
+}
 
-export const Navbar: React.FC<INavProps> = ({}) => {
+export const Navbar: React.FC<INavbarProps> = ({ authUser }) => {
   return (
     <nav>
       <ul>
@@ -16,6 +20,11 @@ export const Navbar: React.FC<INavProps> = ({}) => {
         <li>
           <Link href="/login">Login</Link>
         </li>
+        {authUser && (
+          <li>
+            <Link href="/">Logout</Link>
+          </li>
+        )}
         <li>
           <Link href="/auth">Auth</Link>
         </li>

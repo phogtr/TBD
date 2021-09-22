@@ -12,23 +12,17 @@ interface ISSRProps {
   me: string;
 }
 
-// me only available if user is login
-const SSR: React.FC<ISSRProps> = ({ user, me }) => {
+const SSR: React.FC<ISSRProps> = ({ user }) => {
   return (
     <>
-      <Navbar />
+      <Navbar authUser={user} />
       <div>
         <h1>SSR</h1>
         {user ? <h3>{user.userId}</h3> : <h3>No data</h3>}
-        <div>{me}</div>
       </div>
     </>
   );
 };
 export default SSR;
 
-export const getServerSideProps: GetServerSideProps = withAuthUser(async (authUser: IAuthUser) => {
-  // inner function to fetch data & only fetch if withAuthUser return the user
-  // console.log(authUser);
-  return { props: { user: authUser, me: "hello" } };
-});
+export const getServerSideProps: GetServerSideProps = withAuthUser();
