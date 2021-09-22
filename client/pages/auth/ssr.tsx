@@ -1,12 +1,14 @@
 import { GetServerSideProps } from "next";
 import React from "react";
-import { useAuth } from "../../context/user.context";
-import axios from "../../lib/axios";
+import { requirePageAuth } from "../../lib/requirePageAuth";
 
-interface ISSRProps {}
+interface ISSRProps {
+  user: {
+    userId: string;
+  };
+}
 
-const SSR: React.FC<ISSRProps> = ({}) => {
-  const { user } = useAuth();
+const SSR: React.FC<ISSRProps> = ({ user }) => {
   return (
     <div>
       <h1>SSR</h1>
@@ -16,27 +18,4 @@ const SSR: React.FC<ISSRProps> = ({}) => {
 };
 export default SSR;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-  try {
-    const { data } = await axios.get("/auth", {
-      headers: {
-        cookie: req.headers.cookie,
-      },
-    });
-    // console.log(data);
-    const authUser = {
-      userId: data,
-    };
-    return {
-      props: {
-        user: authUser,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {},
-    };
-  }
-};
+export const getServerSideProps: GetServerSideProps = requirePageAuth();

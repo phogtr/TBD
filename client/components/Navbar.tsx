@@ -19,6 +19,9 @@ export const Navbar: React.FC<INavProps> = ({}) => {
         <li>
           <Link href="/auth">Auth</Link>
         </li>
+        <li>
+          <Link href="/auth/ssr">Auth SSR</Link>
+        </li>
       </ul>
     </nav>
   );
