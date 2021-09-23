@@ -1,7 +1,11 @@
 import { compare, genSalt, hashSync } from "bcrypt";
 import { Request, Response } from "express";
 import pool from "../db/pool";
-import { accessTokenCookieOptions, refreshTokenCookieOptions } from "../utils/cookieOptions";
+import {
+  accessTokenCookieOptions,
+  defaultCookieOptions,
+  refreshTokenCookieOptions,
+} from "../utils/cookieOptions";
 import { createAccessToken, createRefreshToken } from "../utils/jwt.utils";
 import { setCookies } from "../utils/setCookies";
 
@@ -52,5 +56,11 @@ export const userLoginHandler = async (req: Request, res: Response) => {
   const accessToken = createAccessToken({ userId: user.rows[0].user_id });
   setCookies(res, "accessToken", accessToken, accessTokenCookieOptions);
 
-  return res.status(200).send({ accessToken });
+  return res.sendStatus(200);
+};
+
+export const userLogoutHandler = async (_req: Request, res: Response) => {
+  setCookies(res, "refreshToken", "", { ...defaultCookieOptions, maxAge: 0 });
+  setCookies(res, "accessToken", "", { ...defaultCookieOptions, maxAge: 0 });
+  return res.sendStatus(200);
 };
