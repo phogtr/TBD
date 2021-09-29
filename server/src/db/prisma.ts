@@ -1,11 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 
-interface CustomNodeJsGlobal {
-  prisma: PrismaClient;
-}
-
 // fix warning from Prisma Client in development
-declare const global: CustomNodeJsGlobal;
+declare global {
+  var prisma: PrismaClient | undefined;
+}
 
 const prisma = global.prisma || new PrismaClient();
 

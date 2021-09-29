@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import pool from "../db/pool";
 import { accessTokenCookieOptions, refreshTokenCookieOptions } from "../utils/cookieOptions";
 import { createAccessToken, createRefreshToken, verifyRefreshToken } from "../utils/jwt.utils";
 import { setCookies } from "../utils/setCookies";
+import prisma from "../db/prisma";
 
 export const refreshTokenHandler = async (req: Request, res: Response) => {
   const token = req.cookies.refreshToken;
@@ -15,20 +15,26 @@ export const refreshTokenHandler = async (req: Request, res: Response) => {
     return res.sendStatus(400);
   }
 
-  const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
-    (payload as any).userId,
-  ]);
+  // const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+  //   (payload as any).userId,
+  // ]);
+  const theUser = await prisma.user.findUnique({
+    where: {
+      id: (payload as any).userId,
+    },
+  });
 
-  if (user.rows.length === 0) {
+  // unexpected error
+  if (!theUser) {
     return res.sendStatus(500);
   }
 
-  const refreshToken = createRefreshToken({ userId: user.rows[0].user_id });
+  const refreshToken = createRefreshToken({ userId: theUser.id });
   setCookies(res, "refreshToken", refreshToken, refreshTokenCookieOptions);
 
   const accessToken = createAccessToken({
-    userId: user.rows[0].user_id,
-    username: user.rows[0].username,
+    userId: theUser.id,
+    username: theUser.username,
   });
   setCookies(res, "accessToken", accessToken, accessTokenCookieOptions);
 
