@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  username String
+  password String
+
+  visited Location[]
+  tickets Ticket[]
+}
+
+model Location {
+  id     String  @id @default(uuid())
+  name   String
+  users  User[]
+  ticket Ticket?
+}
+
+model Ticket {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  destination Location @relation(fields: [locationId], references: [id])
+  locationId  String
+}
+
+// user -> location : many - many
+// user -> ticket : 1 - many
+// ticket -> location: 1 - 1
+
+// user
+//  visited: [A, B] => history
+//  ticket: [C, D, E] => in cart
+
+// destination
+//  user: [A, B, C]
+//  ticket: ""
+
+// ticket
+//  user: ""
+//  destination: ""
