@@ -3,14 +3,18 @@ import { Navbar } from "../../components/Navbar";
 import { useUser } from "../../lib/useUser";
 
 const Auth: React.FC<{}> = ({}) => {
-  const { userData } = useUser({});
+  const { userData } = useUser({ redirectTo: "/login" });
+
+  if (!userData) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
       <Navbar authUser={userData} />
       <div>
         <h1>Auth</h1>
-        {userData ? (
+        {userData.isLoggedIn ? (
           <div>
             <h3>{userData.userId}</h3>
             <h3>{userData.username}</h3>

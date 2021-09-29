@@ -7,6 +7,7 @@ import { withAuthUser } from "../lib/withAuthUser";
 interface IAuthUser {
   userId: string;
   username: string;
+  isLoggedIn: boolean;
 }
 
 interface IHomeProps {
@@ -21,7 +22,7 @@ const Home: React.FC<IHomeProps> = ({ user, me }) => {
       <Meta title="Home" />
       <Navbar authUser={user} />
       <h1>Hello World</h1>
-      <div>{me}</div>
+      {user.isLoggedIn && <div>{me}</div>}
     </>
   );
 };

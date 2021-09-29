@@ -4,8 +4,8 @@ import React from "react";
 import axios from "../lib/axios";
 
 interface INavbarProps {
-  authUser?: {
-    userId: string;
+  authUser: {
+    isLoggedIn: boolean;
   };
 }
 
@@ -28,7 +28,7 @@ export const Navbar: React.FC<INavbarProps> = ({ authUser }) => {
         <li>
           <Link href="/login">Login</Link>
         </li>
-        {authUser && (
+        {authUser.isLoggedIn && (
           <li>
             <button onClick={handleLogout}>Logout</button>
           </li>

@@ -11,7 +11,13 @@ const refreshingToken = async (req: IncomingMessage, res: ServerResponse) => {
   res.setHeader("set-cookie", cookies);
 };
 
-const requestAuthUser = async (req: IncomingMessage) => {
+const requestAuthUser = async (
+  req: IncomingMessage
+): Promise<{
+  userId: string;
+  username: string;
+  isLoggedIn: boolean;
+}> => {
   try {
     const { data } = await axios.get("/auth", {
       headers: { cookie: req.headers.cookie },
@@ -19,6 +25,7 @@ const requestAuthUser = async (req: IncomingMessage) => {
     const authUser = {
       userId: data.userId,
       username: data.username,
+      isLoggedIn: true,
     };
     return authUser;
   } catch (error) {
@@ -26,7 +33,14 @@ const requestAuthUser = async (req: IncomingMessage) => {
   }
 };
 
-const getAuthUser = async (req: IncomingMessage, res: ServerResponse) => {
+const getAuthUser = async (
+  req: IncomingMessage,
+  res: ServerResponse
+): Promise<{
+  userId: string;
+  username: string;
+  isLoggedIn: boolean;
+}> => {
   try {
     const authUser = await requestAuthUser(req);
     return authUser;
@@ -44,7 +58,11 @@ const getAuthUser = async (req: IncomingMessage, res: ServerResponse) => {
     }
     // else ... console.log(error) here
     // both cookies are not in the header => undefined error from axios
-    return null;
+    return {
+      userId: "",
+      username: "",
+      isLoggedIn: false,
+    };
   }
 };
 

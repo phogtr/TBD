@@ -6,6 +6,7 @@ import { withAuthUser } from "../../lib/withAuthUser";
 interface IAuthUser {
   userId: string;
   username: string;
+  isLoggedIn: boolean;
 }
 
 interface ISSRProps {
@@ -19,7 +20,7 @@ const SSR: React.FC<ISSRProps> = ({ user }) => {
       <Navbar authUser={user} />
       <div>
         <h1>SSR</h1>
-        {user ? (
+        {user.isLoggedIn ? (
           <div>
             <h3>{user.userId}</h3>
             <h3>{user.username}</h3>

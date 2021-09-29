@@ -12,12 +12,14 @@ const requestAuthUser = async (
 ): Promise<{
   userId: string;
   username: string;
+  isLoggedIn: boolean;
 }> => {
   try {
     const res = await axios.get(url);
     const authUser = {
       userId: res.data.userId,
       username: res.data.username,
+      isLoggedIn: true,
     };
     return authUser;
   } catch (error) {
@@ -27,13 +29,11 @@ const requestAuthUser = async (
 
 const fetcher = async (
   url: string
-): Promise<
-  | {
-      userId: string;
-      username: string;
-    }
-  | undefined
-> => {
+): Promise<{
+  userId: string;
+  username: string;
+  isLoggedIn: boolean;
+}> => {
   try {
     return await requestAuthUser(url);
   } catch (error) {
@@ -42,11 +42,19 @@ const fetcher = async (
         await refreshingToken();
         return await requestAuthUser(url);
       } catch (err2) {
-        throw err2;
+        return {
+          userId: "",
+          username: "",
+          isLoggedIn: false,
+        };
       }
     }
     // else ... console.log(error) here => unexpected error
-    return;
+    return {
+      userId: "",
+      username: "",
+      isLoggedIn: false,
+    };
   }
 };
 
@@ -55,9 +63,9 @@ export const useUser = ({ redirectTo = "" }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (redirectTo === "" && !data) return;
+    if (redirectTo === "" || !data) return;
 
-    if (redirectTo && !data) {
+    if (redirectTo && !data?.isLoggedIn) {
       router.push(redirectTo);
     }
   }, [data, redirectTo]);
