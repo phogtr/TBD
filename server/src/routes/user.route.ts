@@ -8,7 +8,10 @@ import isAuth from "../middleware/isAuth";
 
 export default function (app: Express) {
   app.get("/auth", isAuth, async (req, res) => {
-    res.send(`id: ${(req as any).user.userId}`);
+    res.send({
+      userId: (req as any).user.userId,
+      username: (req as any).user.username,
+    });
   });
 
   app.post("/api/register", userRegisterHandler);

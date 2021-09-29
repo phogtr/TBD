@@ -17,7 +17,8 @@ const requestAuthUser = async (req: IncomingMessage) => {
       headers: { cookie: req.headers.cookie },
     });
     const authUser = {
-      userId: data,
+      userId: data.userId,
+      username: data.username,
     };
     return authUser;
   } catch (error) {

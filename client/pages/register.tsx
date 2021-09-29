@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import { Meta } from "../components/Meta";
 import axios from "../lib/axios";
@@ -73,6 +74,7 @@ const Register: React.FC<IregisterProps> = ({}) => {
         </div>
         <button type="submit">Register</button>
       </form>
+      <Link href="/">Home</Link>
     </div>
   );
 };

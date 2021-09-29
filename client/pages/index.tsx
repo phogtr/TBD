@@ -6,6 +6,7 @@ import { withAuthUser } from "../lib/withAuthUser";
 
 interface IAuthUser {
   userId: string;
+  username: string;
 }
 
 interface IHomeProps {

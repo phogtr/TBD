@@ -26,7 +26,10 @@ export const refreshTokenHandler = async (req: Request, res: Response) => {
   const refreshToken = createRefreshToken({ userId: user.rows[0].user_id });
   setCookies(res, "refreshToken", refreshToken, refreshTokenCookieOptions);
 
-  const accessToken = createAccessToken({ userId: user.rows[0].user_id });
+  const accessToken = createAccessToken({
+    userId: user.rows[0].user_id,
+    username: user.rows[0].username,
+  });
   setCookies(res, "accessToken", accessToken, accessTokenCookieOptions);
 
   return res.sendStatus(200);

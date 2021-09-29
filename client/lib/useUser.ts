@@ -7,11 +7,17 @@ const refreshingToken = async () => {
   await axios.post("/refresh-token", undefined);
 };
 
-const requestAuthUser = async (url: string) => {
+const requestAuthUser = async (
+  url: string
+): Promise<{
+  userId: string;
+  username: string;
+}> => {
   try {
     const res = await axios.get(url);
     const authUser = {
-      userId: res.data,
+      userId: res.data.userId,
+      username: res.data.username,
     };
     return authUser;
   } catch (error) {
@@ -19,7 +25,15 @@ const requestAuthUser = async (url: string) => {
   }
 };
 
-const fetcher = async (url: string) => {
+const fetcher = async (
+  url: string
+): Promise<
+  | {
+      userId: string;
+      username: string;
+    }
+  | undefined
+> => {
   try {
     return await requestAuthUser(url);
   } catch (error) {

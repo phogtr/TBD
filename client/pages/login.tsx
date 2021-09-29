@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Meta } from "../components/Meta";
@@ -61,6 +62,7 @@ const Login: React.FC<IloginProps> = ({}) => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <Link href="/">Home</Link>
     </div>
   );
 };

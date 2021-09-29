@@ -10,7 +10,14 @@ const Auth: React.FC<{}> = ({}) => {
       <Navbar authUser={userData} />
       <div>
         <h1>Auth</h1>
-        {userData ? <h3>{userData.userId}</h3> : <h3>No data</h3>}
+        {userData ? (
+          <div>
+            <h3>{userData.userId}</h3>
+            <h3>{userData.username}</h3>
+          </div>
+        ) : (
+          <h3>No data</h3>
+        )}
       </div>
     </>
   );
