@@ -31,21 +31,22 @@ const fetcher = async (url: string) => {
         throw err2;
       }
     }
-    throw error;
+    // else ... console.log(error) here => unexpected error
+    return;
   }
 };
 
-export const useUser = ({ redirecTo = "", redirecIfFound = false }) => {
+export const useUser = ({ redirectTo = "" }) => {
   const { data, mutate } = useSWR("/auth", fetcher);
   const router = useRouter();
 
   useEffect(() => {
-    if (!redirecTo || !data) return;
+    if (redirectTo === "" && !data) return;
 
-    if ((redirecTo && !redirecIfFound && !data) || (redirecIfFound && data)) {
-      router.push(redirecTo);
+    if (redirectTo && !data) {
+      router.push(redirectTo);
     }
-  }, [data, redirecTo, redirecIfFound]);
+  }, [data, redirectTo]);
 
   return {
     userData: data,

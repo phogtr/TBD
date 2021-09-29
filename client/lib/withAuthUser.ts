@@ -47,12 +47,16 @@ const getAuthUser = async (req: IncomingMessage, res: ServerResponse) => {
   }
 };
 
-export const withAuthUser = (inner?: Function) => {
+export const withAuthUser = ({ redirectTo = "" }, inner?: Function) => {
   return async (context: GetServerSidePropsContext) => {
     const { req, res } = context;
     const authUser = await getAuthUser(req, res);
 
     if (!authUser) {
+      if (redirectTo !== "") {
+        res.writeHead(307, { location: redirectTo });
+        res.end();
+      }
       return { props: {} };
     }
 

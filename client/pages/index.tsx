@@ -33,4 +33,4 @@ const mockFetchData = () => {
   };
 };
 
-export const getServerSideProps: GetServerSideProps = withAuthUser(mockFetchData());
+export const getServerSideProps: GetServerSideProps = withAuthUser({}, mockFetchData());

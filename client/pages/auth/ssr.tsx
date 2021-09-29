@@ -25,4 +25,4 @@ const SSR: React.FC<ISSRProps> = ({ user }) => {
 };
 export default SSR;
 
-export const getServerSideProps: GetServerSideProps = withAuthUser();
+export const getServerSideProps: GetServerSideProps = withAuthUser({ redirectTo: "/login" });

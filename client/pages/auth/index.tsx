@@ -3,9 +3,7 @@ import { Navbar } from "../../components/Navbar";
 import { useUser } from "../../lib/useUser";
 
 const Auth: React.FC<{}> = ({}) => {
-  const { userData } = useUser({
-    redirecTo: "/",
-  });
+  const { userData } = useUser({});
 
   return (
     <>
