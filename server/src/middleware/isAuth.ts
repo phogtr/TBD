@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { verifyAccessToken } from "../utils/jwt.utils";
+import { getDataFromAccessToken } from "../utils/getDataFromAccToken";
 
 const isAuth = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies["accessToken"];
-  const { payload } = verifyAccessToken(token);
+  const payload = getDataFromAccessToken(req);
 
   if (payload) {
-    (req as any).user = payload;
+    res.locals.user = payload;
   } else if (payload === null) {
     return res.sendStatus(401);
   }

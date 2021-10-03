@@ -7,10 +7,10 @@ import {
 import isAuth from "../middleware/isAuth";
 
 export default function (app: Express) {
-  app.get("/auth", isAuth, async (req, res) => {
+  app.get("/auth", isAuth, async (_req, res) => {
     res.send({
-      userId: (req as any).user.userId,
-      username: (req as any).user.username,
+      userId: res.locals.user.userId,
+      username: res.locals.user.username,
     });
   });
 
