@@ -10,7 +10,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
+model Buyer {
   id       String @id @default(uuid())
   email    String @unique
   username String
@@ -20,33 +20,33 @@ model User {
   tickets Ticket[]
 }
 
-model Location {
-  id     String  @id @default(uuid())
-  name   String
-  users  User[]
-  ticket Ticket?
-}
-
 model Ticket {
   id          String   @id @default(uuid())
-  user        User     @relation(fields: [userId], references: [id])
-  userId      String
+  buyer       Buyer?   @relation(fields: [buyerId], references: [id])
+  buyerId     String?  @unique
   destination Location @relation(fields: [locationId], references: [id])
-  locationId  String
+  locationId  String   @unique
 }
 
-// user -> location : many - many
-// user -> ticket : 1 - many
+model Location {
+  id       String  @id @default(uuid())
+  name     String
+  visitors Buyer[]
+  ticket   Ticket?
+}
+
+// buyer -> location : many - many
+// buyer -> ticket : 1 - many
 // ticket -> location: 1 - 1
 
-// user
+// buyer
 //  visited: [A, B] => history
-//  ticket: [C, D, E] => in cart
+//  ticket (owned): [C, D, E] => in cart
 
 // destination
-//  user: [A, B, C]
+//  visitors: [A, B, C]
 //  ticket: ""
 
 // ticket
-//  user: ""
+//  buyer: ""
 //  destination: ""

@@ -18,7 +18,7 @@ export const refreshTokenHandler = async (req: Request, res: Response) => {
   // const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
   //   (payload as any).userId,
   // ]);
-  const theUser = await prisma.user.findUnique({
+  const theUser = await prisma.buyer.findUnique({
     where: {
       id: (payload as any).userId,
     },
