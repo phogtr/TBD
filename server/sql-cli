@@ -1,0 +1,28 @@
+login to postgresql
+  psql -U postgres
+
+list all database
+  \l
+
+move to a database
+  \c database_name
+
+list all the table of that database
+  \dt 
+
+quit
+  \q
+
+create database
+  CREATE DATABASE database_name;
+
+drop database
+  DROP DATABASE database_name;
+
+=========================================
+npx prisma studio --schema path-to-schema.prisma
+
+npx prisma migrate dev --schema path-to-schema.prisma
+
+npx prisma generate --schema path-to-schema.prisma
+ 
