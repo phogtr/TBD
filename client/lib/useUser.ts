@@ -65,7 +65,7 @@ export const useUser = ({ redirectTo = "" }) => {
   useEffect(() => {
     if (redirectTo === "" || !data) return;
 
-    if (redirectTo && !data?.isLoggedIn) {
+    if (redirectTo && data.isLoggedIn === false) {
       router.push(redirectTo);
     }
   }, [data, redirectTo]);

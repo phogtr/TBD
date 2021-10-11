@@ -78,7 +78,10 @@ export const userLoginHandler = async (req: Request, res: Response) => {
   });
   setCookies(res, "accessToken", accessToken, accessTokenCookieOptions);
 
-  return res.sendStatus(200);
+  return res.status(200).send({
+    userId: existedUser.id,
+    username: existedUser.username
+  });
 };
 
 export const userLogoutHandler = async (_req: Request, res: Response) => {

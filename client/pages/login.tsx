@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Meta } from "../components/Meta";
 import axios from "../lib/axios";
+import { useUser } from "../lib/useUser";
 
 interface ILoginBody {
   email: string;
@@ -15,6 +16,7 @@ const Login: React.FC<IloginProps> = ({}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { mutateUser } = useUser({});
 
   return (
     <div>
@@ -28,8 +30,12 @@ const Login: React.FC<IloginProps> = ({}) => {
             password,
           };
           try {
-            await axios.post("/api/login", loginBody);
-            // console.log(res.data);
+            const res = await axios.post("/api/login", loginBody);
+            mutateUser({
+              userId: res.data.userId,
+              username: res.data.username,
+              isLoggedIn: true
+            });
             router.push("/");
           } catch (error) {
             console.log(error);
