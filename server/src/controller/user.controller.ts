@@ -80,7 +80,7 @@ export const userLoginHandler = async (req: Request, res: Response) => {
 
   return res.status(200).send({
     userId: existedUser.id,
-    username: existedUser.username
+    username: existedUser.username,
   });
 };
 

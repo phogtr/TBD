@@ -34,7 +34,7 @@ const Login: React.FC<IloginProps> = ({}) => {
             mutateUser({
               userId: res.data.userId,
               username: res.data.username,
-              isLoggedIn: true
+              isLoggedIn: true,
             });
             router.push("/");
           } catch (error) {
