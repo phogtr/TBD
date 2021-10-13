@@ -36,3 +36,18 @@ export const createTicketHandler = async (req: Request, res: Response) => {
     return res.sendStatus(500);
   }
 };
+
+export const getAllTicketsHandler = async (_req: Request, res: Response) => {
+  try {
+    const allTickets = await prisma.ticket.findMany({
+      select: {
+        id: true,
+        destination: true,
+      },
+    });
+    return res.json(allTickets);
+  } catch (error) {
+    console.log("unexpected error: ", error);
+    return res.sendStatus(500);
+  }
+};
