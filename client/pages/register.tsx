@@ -1,13 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import { IRegisterBody, registerRequest } from "../api/buyer/buyer.api";
 import { Meta } from "../components/Meta";
-import axios from "../lib/axios";
-
-interface IRegisterBody {
-  username: string;
-  email: string;
-  password: string;
-}
 
 interface IregisterProps {}
 
@@ -29,7 +23,7 @@ const Register: React.FC<IregisterProps> = ({}) => {
             password,
           };
           try {
-            const res = await axios.post("/api/register", registerBody);
+            const res = await registerRequest(registerBody);
             console.log(res.data);
           } catch (error) {
             console.log(error);
