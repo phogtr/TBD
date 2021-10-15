@@ -1,14 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { ILoginBody, loginRequest } from "../api/buyer/buyer.api";
 import { Meta } from "../components/Meta";
-import axios from "../lib/axios";
 import { useUser } from "../lib/useUser";
-
-interface ILoginBody {
-  email: string;
-  password: string;
-}
 
 interface IloginProps {}
 
@@ -30,7 +25,7 @@ const Login: React.FC<IloginProps> = ({}) => {
             password,
           };
           try {
-            const res = await axios.post("/api/login", loginBody);
+            const res = await loginRequest(loginBody);
             mutateUser({
               userId: res.data.userId,
               username: res.data.username,
