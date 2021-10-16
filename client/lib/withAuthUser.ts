@@ -1,11 +1,10 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { GetServerSidePropsContext } from "next";
+import { refreshTokenRequest } from "../api/buyer/buyer.api";
 import axios from "./axios";
 
 const refreshingToken = async (req: IncomingMessage, res: ServerResponse) => {
-  const response = await axios.post("/refresh-token", undefined, {
-    headers: { cookie: req.headers.cookie },
-  });
+  const response = await refreshTokenRequest(req.headers.cookie);
   const cookies = response.headers["set-cookie"];
   req.headers.cookie = cookies;
   res.setHeader("set-cookie", cookies);

@@ -15,14 +15,13 @@ interface IHomeProps {
   me: string;
 }
 
-// me is only available when user is login
 const Home: React.FC<IHomeProps> = ({ user, me }) => {
   return (
     <>
       <Meta title="Home" />
       <Navbar authUser={user} />
       <h1>Hello World</h1>
-      {user.isLoggedIn && <div>{me}</div>}
+      <div>{me}</div>
     </>
   );
 };

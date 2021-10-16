@@ -18,3 +18,9 @@ export const registerRequest = async (body: IRegisterBody) => {
 export const loginRequest = async (body: ILoginBody) => {
   return await axios.post("/api/login", body);
 };
+
+export const refreshTokenRequest = async (cookie?: string) => {
+  return await axios.post("/refresh-token", undefined, {
+    headers: { cookie: cookie },
+  });
+};
