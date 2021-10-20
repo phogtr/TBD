@@ -1,5 +1,6 @@
 import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 import React from "react";
+import { getAllLocationsRequest } from "../api/location/location.api";
 import { getAllTicketsRequest } from "../api/ticket/ticket.api";
 import { Meta } from "../components/Meta";
 import { Navbar } from "../components/Navbar";
@@ -19,6 +20,7 @@ interface IHomeProps {
 const Home: React.FC<IHomeProps> = ({ user, me }) => {
   React.useEffect(() => {
     getAllTicketsRequest().then((res) => console.log(res.data));
+    getAllLocationsRequest().then((res) => console.log(res.data));
   }, []);
 
   return (
