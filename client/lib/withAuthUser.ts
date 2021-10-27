@@ -10,7 +10,6 @@ const refreshingToken = async (req: IncomingMessage, res: ServerResponse) => {
     req.headers.cookie = cookies;
     res.setHeader("set-cookie", cookies);
   } catch (error) {
-    console.log("401 Error here because isCheck cookie is not authenticated");
     throw error;
   }
 };
@@ -56,8 +55,7 @@ const getAuthUser = async (
         const authUser = await requestAuthUser(req);
         return authUser;
       } catch (err2) {
-        // unexpected error here
-        console.log("Catch refreshingToken Error");
+        console.log("Expect error from refreshingToken: ", err2);
         return {
           userId: "",
           username: "",
