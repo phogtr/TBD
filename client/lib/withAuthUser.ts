@@ -4,10 +4,15 @@ import { refreshTokenRequest } from "../api/buyer/buyer.api";
 import axios from "./axios";
 
 const refreshingToken = async (req: IncomingMessage, res: ServerResponse) => {
-  const response = await refreshTokenRequest(req.headers.cookie);
-  const cookies = response.headers["set-cookie"];
-  req.headers.cookie = cookies;
-  res.setHeader("set-cookie", cookies);
+  try {
+    const response = await refreshTokenRequest(req.headers.cookie);
+    const cookies = response.headers["set-cookie"];
+    req.headers.cookie = cookies;
+    res.setHeader("set-cookie", cookies);
+  } catch (error) {
+    console.log("401 Error here because isCheck cookie is not authenticated");
+    throw error;
+  }
 };
 
 const requestAuthUser = async (
@@ -52,7 +57,12 @@ const getAuthUser = async (
         return authUser;
       } catch (err2) {
         // unexpected error here
-        console.log(err2);
+        console.log("Catch refreshingToken Error");
+        return {
+          userId: "",
+          username: "",
+          isLoggedIn: false,
+        };
       }
     }
     // else ... console.log(error) here
