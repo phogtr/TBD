@@ -7,13 +7,13 @@ interface IDestination {
   name: string;
 }
 
-interface ITicketsData {
+interface ITicketData {
   id: string;
   destination: IDestination;
 }
 
 interface ITicketsProps {
-  tickets: ITicketsData[];
+  tickets: ITicketData[];
 }
 
 const Tickets: React.FC<ITicketsProps> = ({ tickets }) => {
