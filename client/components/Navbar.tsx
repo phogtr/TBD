@@ -23,6 +23,15 @@ export const Navbar: React.FC<INavbarProps> = ({ authUser }) => {
           <Link href="/">Home</Link>
         </li>
         <li>
+          <Link href="/tickets">Tickets</Link>
+        </li>
+        <li>
+          <Link href="/locations">Explore</Link>
+        </li>
+        <li>
+          <Link href="/tickets/create-ticket">Create a ticket</Link>
+        </li>
+        <li>
           <Link href="/register">Register</Link>
         </li>
         <li>
