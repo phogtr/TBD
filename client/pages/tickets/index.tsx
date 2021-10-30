@@ -22,7 +22,7 @@ const Tickets: React.FC<ITicketsProps> = ({ tickets }) => {
       <h1>Tickets</h1>
       <div>
         {tickets.map((t) => (
-          <div key={t.id}>Location: {t.destination.name}</div>
+          <div key={t.id}>Destination: {t.destination.name}</div>
         ))}
       </div>
     </div>

@@ -3,19 +3,19 @@ import React, { BaseSyntheticEvent, useState } from "react";
 
 import { Meta } from "../../components/Meta";
 
-import { getAllLocationsRequest } from "../../api/location/location.api";
+import { getAllDestinationsRequest } from "../../api/destination/destination.api";
 
-interface ILocationData {
+interface IDestinationData {
   id: string;
   name: string;
 }
 
 interface ICreateTicketProps {
-  locations: ILocationData[];
+  destinations: IDestinationData[];
 }
 
-const CreateTicket: React.FC<ICreateTicketProps> = ({ locations }) => {
-  const [selectedItem, setSelectedItem] = useState(locations[0].name);
+const CreateTicket: React.FC<ICreateTicketProps> = ({ destinations }) => {
+  const [selectedItem, setSelectedItem] = useState(destinations[0].name);
 
   const formSubmitHandler = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
@@ -29,14 +29,14 @@ const CreateTicket: React.FC<ICreateTicketProps> = ({ locations }) => {
       <form onSubmit={formSubmitHandler}>
         <div>
           <label>
-            Select a location:
+            Select a destination:
             <select
               value={selectedItem}
               onChange={(e: BaseSyntheticEvent) => setSelectedItem(e.target.value)}
             >
-              {locations.map((location) => (
-                <option key={location.id} value={location.name}>
-                  {location.name}
+              {destinations.map((destination) => (
+                <option key={destination.id} value={destination.name}>
+                  {destination.name}
                 </option>
               ))}
             </select>
@@ -52,11 +52,11 @@ const CreateTicket: React.FC<ICreateTicketProps> = ({ locations }) => {
 export default CreateTicket;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getAllLocationsRequest();
+  const res = await getAllDestinationsRequest();
 
   return {
     props: {
-      locations: res.data,
+      destinations: res.data,
     },
   };
 };

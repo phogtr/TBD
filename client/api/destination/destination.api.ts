@@ -1,5 +1,5 @@
 import axios from "../../lib/axios";
 
-export const getAllLocationsRequest = async () => {
+export const getAllDestinationsRequest = async () => {
   return await axios.get("/api/all-locations");
 };
