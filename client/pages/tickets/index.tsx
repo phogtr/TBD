@@ -1,19 +1,11 @@
 import { GetServerSideProps } from "next";
 import React from "react";
+
+import { ITicket } from "../../interface";
 import { getAllTicketsRequest } from "../../api/ticket/ticket.api";
 
-interface IDestination {
-  id: string;
-  name: string;
-}
-
-interface ITicketData {
-  id: string;
-  destination: IDestination;
-}
-
 interface ITicketsProps {
-  tickets: ITicketData[];
+  tickets: ITicket[];
 }
 
 const Tickets: React.FC<ITicketsProps> = ({ tickets }) => {

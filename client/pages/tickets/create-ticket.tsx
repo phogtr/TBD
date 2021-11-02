@@ -4,16 +4,12 @@ import { useRouter } from "next/router";
 
 import { Meta } from "../../components/Meta";
 
+import { IDestination } from "../../interface";
 import { getAllDestinationsRequest } from "../../api/destination/destination.api";
 import { createTicketRequest } from "../../api/ticket/ticket.api";
 
-interface IDestinationData {
-  id: string;
-  name: string;
-}
-
 interface ICreateTicketProps {
-  destinations: IDestinationData[];
+  destinations: IDestination[];
 }
 
 const CreateTicket: React.FC<ICreateTicketProps> = ({ destinations }) => {

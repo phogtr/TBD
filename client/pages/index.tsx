@@ -1,17 +1,13 @@
-import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 import React from "react";
-import { getAllDestinationsRequest } from "../api/destination/destination.api";
-import { getAllTicketsRequest } from "../api/ticket/ticket.api";
-import { withAuthUser } from "../lib/withAuthUser";
+import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 import { Meta } from "../components/Meta";
 import { Navbar } from "../components/Navbar";
 
-interface IAuthUser {
-  userId: string;
-  username: string;
-  isLoggedIn: boolean;
-}
+import { IAuthUser } from "../interface";
+import { getAllDestinationsRequest } from "../api/destination/destination.api";
+import { getAllTicketsRequest } from "../api/ticket/ticket.api";
+import { withAuthUser } from "../lib/withAuthUser";
 
 interface IHomeProps {
   user: IAuthUser;

@@ -1,7 +1,9 @@
-import Link from "next/link";
 import React, { useState } from "react";
-import { IRegisterBody, registerRequest } from "../api/buyer/buyer.api";
+import Link from "next/link";
+
 import { Meta } from "../components/Meta";
+
+import { registerRequest } from "../api/buyer/buyer.api";
 
 interface IregisterProps {}
 
@@ -17,7 +19,7 @@ const Register: React.FC<IregisterProps> = ({}) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const registerBody: IRegisterBody = {
+          const registerBody = {
             username,
             email,
             password,

@@ -1,8 +1,10 @@
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { ILoginBody, loginRequest } from "../api/buyer/buyer.api";
+
 import { Meta } from "../components/Meta";
+
+import { loginRequest } from "../api/buyer/buyer.api";
 import { useUser } from "../lib/useUser";
 
 interface IloginProps {}
@@ -20,7 +22,7 @@ const Login: React.FC<IloginProps> = ({}) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const loginBody: ILoginBody = {
+          const loginBody = {
             email,
             password,
           };
