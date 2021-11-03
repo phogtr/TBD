@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Meta } from "../../components/Meta";
 
 import { IDestination } from "../../interface";
-import { getAllDestinationsRequest } from "../../api/destination/destination.api";
+import { getAvailableDestinationRequest } from "../../api/destination/destination.api";
 import { createTicketRequest } from "../../api/ticket/ticket.api";
 
 interface ICreateTicketProps {
@@ -60,7 +60,7 @@ const CreateTicket: React.FC<ICreateTicketProps> = ({ destinations }) => {
 export default CreateTicket;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getAllDestinationsRequest();
+  const res = await getAvailableDestinationRequest();
 
   return {
     props: {
