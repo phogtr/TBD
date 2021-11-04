@@ -51,3 +51,31 @@ export const getAllTicketsHandler = async (_req: Request, res: Response) => {
     return res.sendStatus(500);
   }
 };
+
+export const deleteTicketHandler = async (req: Request, res: Response) => {
+  const ticketId = req.params.ticketId;
+  try {
+    // const ticket = await prisma.ticket.findUnique({
+    //   where: {
+    //     id: ticketId,
+    //   },
+    // });
+
+    // if (!ticket) {
+    //   return res.status(400).send({
+    //     errorMessage: "Something is not right. Please try a different one.",
+    //   });
+    // }
+
+    await prisma.ticket.delete({
+      where: {
+        id: ticketId,
+      },
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    return res.status(400).send({
+      errorMessage: "Something is not right. Please try a different one.",
+    });
+  }
+};
