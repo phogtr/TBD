@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../db/prisma";
 
-export const createLocationHandler = async (req: Request, res: Response) => {
+export const newLocationHandler = async (req: Request, res: Response) => {
   const { name }: { name: string } = req.body;
 
   try {

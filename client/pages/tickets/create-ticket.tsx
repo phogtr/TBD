@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import React, { BaseSyntheticEvent, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 import { Meta } from "../../components/Meta";
@@ -16,11 +16,11 @@ const CreateTicket: React.FC<ICreateTicketProps> = ({ destinations }) => {
   const router = useRouter();
   const [selectedItem, setSelectedItem] = useState(destinations[0].id);
 
-  const onSelectHandler = (e: BaseSyntheticEvent) => {
+  const onSelectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedItem(e.target.value);
   };
 
-  const formSubmitHandler = async (e: BaseSyntheticEvent) => {
+  const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const requestBody = {
       location: selectedItem,
