@@ -2,17 +2,17 @@ import { Request, Response } from "express";
 import prisma from "../db/prisma";
 
 export const createTicketHandler = async (req: Request, res: Response) => {
-  const { location }: { location: string } = req.body;
+  const { destinationId }: { destinationId: string } = req.body;
 
-  const theDestination = await prisma.location.findUnique({
+  const existedDestination = await prisma.destination.findUnique({
     where: {
-      id: location,
+      id: destinationId,
     },
   });
 
-  if (!theDestination) {
+  if (!existedDestination) {
     return res.status(400).send({
-      errorMessage: "The location does not exist. Please choose an available one.",
+      errorMessage: "The destination does not exist. Please choose an available one.",
     });
   }
 
@@ -21,13 +21,13 @@ export const createTicketHandler = async (req: Request, res: Response) => {
       data: {
         destination: {
           connect: {
-            id: theDestination.id,
+            id: existedDestination.id,
           },
         },
       },
       select: {
         id: true,
-        locationId: true,
+        destinationId: true,
         destination: true,
       },
     });
@@ -43,6 +43,7 @@ export const getAllTicketsHandler = async (_req: Request, res: Response) => {
       select: {
         id: true,
         destination: true,
+        status: true,
       },
     });
     return res.json(allTickets);

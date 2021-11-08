@@ -2,7 +2,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import { locationRoute, ticketRoute, tokenRoute, userRoute } from "./routes";
+import { destinationRoute, ticketRoute, tokenRoute, userRoute } from "./routes";
 
 const app = express();
 
@@ -36,6 +36,6 @@ app.listen(PORT, () => {
 
   userRoute(app);
   tokenRoute(app);
-  locationRoute(app);
+  destinationRoute(app);
   ticketRoute(app);
 });

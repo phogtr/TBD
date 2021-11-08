@@ -18,23 +18,23 @@ export const refreshTokenHandler = async (req: Request, res: Response) => {
   // const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
   //   (payload as any).userId,
   // ]);
-  const theUser = await prisma.buyer.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       id: (payload as any).userId,
     },
   });
 
   // unexpected error
-  if (!theUser) {
+  if (!user) {
     return res.sendStatus(500);
   }
 
-  const refreshToken = createRefreshToken({ userId: theUser.id });
+  const refreshToken = createRefreshToken({ userId: user.id });
   setCookies(res, "refreshToken", refreshToken, refreshTokenCookieOptions);
 
   const accessToken = createAccessToken({
-    userId: theUser.id,
-    username: theUser.username,
+    userId: user.id,
+    username: user.username,
   });
   setCookies(res, "accessToken", accessToken, accessTokenCookieOptions);
 

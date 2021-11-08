@@ -23,7 +23,7 @@ export const userRegisterHandler = async (req: Request, res: Response) => {
     //   [username, email, hashPassword]
     // );
 
-    const newUser = await prisma.buyer.create({
+    const newUser = await prisma.user.create({
       data: {
         email,
         username,
@@ -49,7 +49,7 @@ export const userLoginHandler = async (req: Request, res: Response) => {
   const { email, password }: { email: string; password: string } = req.body;
 
   // const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [email]);
-  const existedUser = await prisma.buyer.findUnique({
+  const existedUser = await prisma.user.findUnique({
     where: {
       email,
     },
