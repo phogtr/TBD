@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { Meta } from "../components/Meta";
 
-import { loginRequest } from "../api/buyer/buyer.api";
+import { loginRequest } from "../api/user/user.api";
 import { useUser } from "../lib/useUser";
 
 interface IloginProps {}

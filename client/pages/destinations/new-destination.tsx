@@ -16,7 +16,7 @@ const NewDestination: React.FC<INewDestinationProps> = ({}) => {
     e.preventDefault();
     console.log(input);
     const requestBody = {
-      name: input,
+      destination: input,
     };
     try {
       await newDestinationRequest(requestBody);

@@ -13,7 +13,7 @@ const Destinations: React.FC<IDestinationsProps> = ({ destinations }) => {
       <h1>Destinations</h1>
       <div>
         {destinations.map((d) => (
-          <div key={d.id}>{d.name}</div>
+          <div key={d.id}>{d.destination}</div>
         ))}
       </div>
     </div>

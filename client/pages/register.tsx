@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Meta } from "../components/Meta";
 
-import { registerRequest } from "../api/buyer/buyer.api";
+import { registerRequest } from "../api/user/user.api";
 
 interface IregisterProps {}
 

@@ -1,7 +1,7 @@
 import axios from "../../lib/axios";
 
 interface ICreateTicketBody {
-  location: string;
+  destinationId: string;
 }
 
 export const getAllTicketsRequest = async () => {

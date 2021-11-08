@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { GetServerSidePropsContext } from "next";
-import { refreshTokenRequest } from "../api/buyer/buyer.api";
+import { refreshTokenRequest } from "../api/user/user.api";
 import axios from "./axios";
 
 const refreshingToken = async (req: IncomingMessage, res: ServerResponse) => {

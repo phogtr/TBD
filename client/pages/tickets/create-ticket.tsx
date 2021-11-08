@@ -23,7 +23,7 @@ const CreateTicket: React.FC<ICreateTicketProps> = ({ destinations }) => {
   const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const requestBody = {
-      location: selectedItem,
+      destinationId: selectedItem,
     };
     try {
       await createTicketRequest(requestBody);
@@ -44,7 +44,7 @@ const CreateTicket: React.FC<ICreateTicketProps> = ({ destinations }) => {
             <select value={selectedItem} onChange={onSelectHandler}>
               {destinations.map((destination) => (
                 <option key={destination.id} value={destination.id}>
-                  {destination.name}
+                  {destination.destination}
                 </option>
               ))}
             </select>

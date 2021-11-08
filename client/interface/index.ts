@@ -6,7 +6,7 @@ export interface IAuthUser {
 
 export interface IDestination {
   id: string;
-  name: string;
+  destination: string;
 }
 
 export interface ITicket {

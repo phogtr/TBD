@@ -23,7 +23,7 @@ const Tickets: React.FC<ITicketsProps> = ({ tickets }) => {
       <div>
         {tickets.map((t) => (
           <div key={t.id}>
-            Destination: {t.destination.name}
+            Destination: {t.destination.destination}
             <button onClick={() => deleteTicketHandler(t.id)}>delete</button>
           </div>
         ))}
