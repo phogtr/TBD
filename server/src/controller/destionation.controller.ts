@@ -63,3 +63,35 @@ export const getAvailableDestinationsHandler = async (_req: Request, res: Respon
     return res.sendStatus(500);
   }
 };
+
+export const removeDestinationHandler = async (req: Request, res: Response) => {
+  const destinationId = req.params.destinationId;
+
+  const ticket = await prisma.ticket.findUnique({
+    where: {
+      destinationId,
+    },
+  });
+
+  if (ticket) {
+    await prisma.ticket.delete({
+      where: {
+        destinationId,
+      },
+    });
+  }
+
+  try {
+    await prisma.destination.delete({
+      where: {
+        id: destinationId,
+      },
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log("error: ", error);
+    return res
+      .status(400)
+      .send({ errorMessage: "Something is not right. Please try a different one." });
+  }
+};

@@ -3,6 +3,7 @@ import {
   newDestinationHandler,
   getAllDestinationsHandler,
   getAvailableDestinationsHandler,
+  removeDestinationHandler,
 } from "../controller/destionation.controller";
 
 export default function (app: Express) {
@@ -11,4 +12,6 @@ export default function (app: Express) {
   app.get("/api/all-destinations", getAllDestinationsHandler);
 
   app.get("/api/available-destinations", getAvailableDestinationsHandler);
+
+  app.delete("/api/destinations/:destinationId", removeDestinationHandler);
 }
