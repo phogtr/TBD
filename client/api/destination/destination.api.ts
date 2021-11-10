@@ -15,3 +15,7 @@ export const getAvailableDestinationRequest = async () => {
 export const newDestinationRequest = async (body: INewDestinationBody) => {
   return await axios.post("/api/new-destination", body);
 };
+
+export const removeDestinationRequest = async (id: string) => {
+  return await axios.delete(`/api/destinations/${id}`);
+};
