@@ -7,11 +7,11 @@ import {
 } from "../controller/destionation.controller";
 
 export default function (app: Express) {
-  app.post("/api/new-destination", newDestinationHandler);
+  app.post("/api/destinations/new-destination", newDestinationHandler);
 
-  app.get("/api/all-destinations", getAllDestinationsHandler);
+  app.get("/api/destinations/all-destinations", getAllDestinationsHandler);
 
-  app.get("/api/available-destinations", getAvailableDestinationsHandler);
+  app.get("/api/destinations/available-destinations", getAvailableDestinationsHandler);
 
-  app.delete("/api/destinations/:destinationId", removeDestinationHandler);
+  app.delete("/api/destinations/:destinationId/delete", removeDestinationHandler);
 }

@@ -6,9 +6,9 @@ import {
 } from "../controller/ticket.controller";
 
 export default function (app: Express) {
-  app.post("/api/create-ticket", createTicketHandler);
+  app.post("/api/ticket/create-ticket", createTicketHandler);
 
-  app.get("/api/all-tickets", getAllTicketsHandler);
+  app.get("/api/ticket/all-tickets", getAllTicketsHandler);
 
-  app.delete("/api/ticket/:ticketId", deleteTicketHandler);
+  app.delete("/api/ticket/:ticketId/delete", deleteTicketHandler);
 }
