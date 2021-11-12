@@ -5,13 +5,13 @@ interface ICreateTicketBody {
 }
 
 export const getAllTicketsRequest = async () => {
-  return await axios.get("/api/all-tickets");
+  return await axios.get("/api/ticket/all-tickets");
 };
 
 export const createTicketRequest = async (body: ICreateTicketBody) => {
-  return await axios.post("/api/create-ticket", body);
+  return await axios.post("/api/ticket/create-ticket", body);
 };
 
 export const deleteTicketRequest = async (id: string) => {
-  return await axios.delete(`/api/ticket/${id}`);
+  return await axios.delete(`/api/ticket/${id}/delete`);
 };
