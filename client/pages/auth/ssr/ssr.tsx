@@ -1,10 +1,10 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 
-import { Navbar } from "../../components/Navbar";
+import { Navbar } from "../../../components/Navbar";
 
-import { IAuthUser } from "../../interface";
-import { withAuthUser } from "../../lib/withAuthUser";
+import { IAuthUser } from "../../../interface";
+import { withAuthUser } from "../../../lib/withAuthUser";
 
 interface ISSRProps {
   user: IAuthUser;
