@@ -3,7 +3,7 @@ import { Navbar } from "../../components/Navbar";
 import { useUser } from "../../lib/useUser";
 
 const Auth: React.FC<{}> = ({}) => {
-  const { userData } = useUser({ redirectTo: "/login" });
+  const { userData } = useUser();
 
   if (!userData) {
     return <h1>Loading...</h1>;

@@ -58,7 +58,7 @@ const fetcher = async (
   }
 };
 
-export const useUser = ({ redirectTo = "" }) => {
+export const useUser = ({ redirectTo = "" } = {}) => {
   const { data, mutate } = useSWR("/auth", fetcher);
   const router = useRouter();
 

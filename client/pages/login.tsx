@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Meta } from "../components/Meta";
 
 import { loginRequest } from "../api/user/user.api";
-import { useUser } from "../lib/useUser";
+// import { useUser } from "../lib/useUser";
 
 interface LoginProps {}
 
@@ -13,7 +13,7 @@ const Login: React.FC<LoginProps> = ({}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { mutateUser } = useUser({});
+  // const { mutateUser } = useUser();
 
   return (
     <div>
@@ -27,12 +27,12 @@ const Login: React.FC<LoginProps> = ({}) => {
             password,
           };
           try {
-            const res = await loginRequest(loginBody);
-            mutateUser({
-              userId: res.data.userId,
-              username: res.data.username,
-              isLoggedIn: true,
-            });
+            await loginRequest(loginBody);
+            // mutateUser({
+            //   userId: res.data.userId,
+            //   username: res.data.username,
+            //   isLoggedIn: true,
+            // });
             router.push("/");
           } catch (error) {
             console.log(error);

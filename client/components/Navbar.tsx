@@ -45,9 +45,9 @@ export const Navbar: React.FC<NavbarProps> = ({ authUser }) => {
             <button onClick={handleLogout}>Logout</button>
           </li>
         )}
-        <li>
+        {/* <li>
           <Link href="/auth">Auth</Link>
-        </li>
+        </li> */}
         <li>
           <Link href="/auth/ssr/ssr">Auth SSR</Link>
         </li>
