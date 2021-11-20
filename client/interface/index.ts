@@ -1,15 +1,15 @@
-export interface IAuthUser {
+export interface AuthUser {
   userId: string;
   username: string;
   isLoggedIn: boolean;
 }
 
-export interface IDestination {
+export interface Destination {
   id: string;
   destination: string;
 }
 
-export interface ITicket {
+export interface Ticket {
   id: string;
-  destination: IDestination;
+  destination: Destination;
 }

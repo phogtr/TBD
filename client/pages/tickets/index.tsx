@@ -2,14 +2,14 @@ import { GetServerSideProps } from "next";
 import React from "react";
 import { useRouter } from "next/router";
 
-import { ITicket } from "../../interface";
+import { Ticket } from "../../interface";
 import { deleteTicketRequest, getAllTicketsRequest } from "../../api/ticket/ticket.api";
 
-interface ITicketsProps {
-  tickets: ITicket[];
+interface TicketsProps {
+  tickets: Ticket[];
 }
 
-const Tickets: React.FC<ITicketsProps> = ({ tickets }) => {
+const Tickets: React.FC<TicketsProps> = ({ tickets }) => {
   const router = useRouter();
 
   const deleteTicketHandler = async (id: string) => {

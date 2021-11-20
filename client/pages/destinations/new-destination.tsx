@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { newDestinationRequest } from "../../api/destination/destination.api";
 import { useRouter } from "next/router";
 
-interface INewDestinationProps {}
+interface NewDestinationProps {}
 
-const NewDestination: React.FC<INewDestinationProps> = ({}) => {
+const NewDestination: React.FC<NewDestinationProps> = ({}) => {
   const router = useRouter();
   const [input, setInput] = useState("");
 

@@ -6,13 +6,13 @@ import {
   // getAvailableDestinationRequest,
   removeDestinationRequest,
 } from "../../api/destination/destination.api";
-import { IDestination } from "../../interface";
+import { Destination } from "../../interface";
 
-interface IDestinationsProps {
-  destinations: IDestination[];
+interface DestinationsProps {
+  destinations: Destination[];
 }
 
-const Destinations: React.FC<IDestinationsProps> = ({ destinations }) => {
+const Destinations: React.FC<DestinationsProps> = ({ destinations }) => {
   const router = useRouter();
 
   const onClickRemoveHandler = async (id: string) => {

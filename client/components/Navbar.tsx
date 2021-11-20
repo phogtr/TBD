@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import React from "react";
 import axios from "../lib/axios";
 
-interface INavbarProps {
+interface NavbarProps {
   authUser: {
     isLoggedIn: boolean;
   };
 }
 
-export const Navbar: React.FC<INavbarProps> = ({ authUser }) => {
+export const Navbar: React.FC<NavbarProps> = ({ authUser }) => {
   const router = useRouter();
   const handleLogout = async () => {
     await axios.post("/api/logout", undefined);

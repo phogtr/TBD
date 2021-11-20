@@ -3,14 +3,14 @@ import { GetServerSideProps } from "next";
 
 import { Navbar } from "../../../components/Navbar";
 
-import { IAuthUser } from "../../../interface";
+import { AuthUser } from "../../../interface";
 import { withAuthUser } from "../../../lib/withAuthUser";
 
-interface ISSRProps {
-  user: IAuthUser;
+interface SSRProps {
+  user: AuthUser;
 }
 
-const SSR: React.FC<ISSRProps> = ({ user }) => {
+const SSR: React.FC<SSRProps> = ({ user }) => {
   return (
     <>
       <Navbar authUser={user} />

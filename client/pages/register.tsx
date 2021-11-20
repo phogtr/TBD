@@ -5,9 +5,9 @@ import { Meta } from "../components/Meta";
 
 import { registerRequest } from "../api/user/user.api";
 
-interface IregisterProps {}
+interface RegisterProps {}
 
-const Register: React.FC<IregisterProps> = ({}) => {
+const Register: React.FC<RegisterProps> = ({}) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

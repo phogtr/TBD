@@ -7,9 +7,9 @@ import { Meta } from "../components/Meta";
 import { loginRequest } from "../api/user/user.api";
 import { useUser } from "../lib/useUser";
 
-interface IloginProps {}
+interface LoginProps {}
 
-const Login: React.FC<IloginProps> = ({}) => {
+const Login: React.FC<LoginProps> = ({}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();

@@ -1,6 +1,6 @@
 import axios from "../../lib/axios";
 
-interface INewDestinationBody {
+interface NewDestinationBody {
   destination: string;
 }
 
@@ -12,7 +12,7 @@ export const getAvailableDestinationRequest = async () => {
   return await axios.get("/api/destinations/available-destinations");
 };
 
-export const newDestinationRequest = async (body: INewDestinationBody) => {
+export const newDestinationRequest = async (body: NewDestinationBody) => {
   return await axios.post("/api/destinations/new-destination", body);
 };
 

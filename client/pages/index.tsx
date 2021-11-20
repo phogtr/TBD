@@ -4,17 +4,17 @@ import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { Meta } from "../components/Meta";
 import { Navbar } from "../components/Navbar";
 
-import { IAuthUser } from "../interface";
+import { AuthUser } from "../interface";
 import { getAllDestinationsRequest } from "../api/destination/destination.api";
 import { getAllTicketsRequest } from "../api/ticket/ticket.api";
 import { withAuthUser } from "../lib/withAuthUser";
 
-interface IHomeProps {
-  user: IAuthUser;
+interface HomeProps {
+  user: AuthUser;
   me: string;
 }
 
-const Home: React.FC<IHomeProps> = ({ user, me }) => {
+const Home: React.FC<HomeProps> = ({ user, me }) => {
   React.useEffect(() => {
     getAllTicketsRequest().then((res) => console.log(res.data));
     getAllDestinationsRequest().then((res) => console.log(res.data));
@@ -33,7 +33,7 @@ const Home: React.FC<IHomeProps> = ({ user, me }) => {
 export default Home;
 
 const mockFetchData = () => {
-  return async (_context: GetServerSidePropsContext, authUser: IAuthUser) => {
+  return async (_context: GetServerSidePropsContext, authUser: AuthUser) => {
     return { props: { user: authUser, me: "hello" } };
   };
 };

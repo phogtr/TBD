@@ -1,6 +1,6 @@
 import axios from "../../lib/axios";
 
-interface ICreateTicketBody {
+interface CreateTicketBody {
   destinationId: string;
 }
 
@@ -8,7 +8,7 @@ export const getAllTicketsRequest = async () => {
   return await axios.get("/api/ticket/all-tickets");
 };
 
-export const createTicketRequest = async (body: ICreateTicketBody) => {
+export const createTicketRequest = async (body: CreateTicketBody) => {
   return await axios.post("/api/ticket/create-ticket", body);
 };
 

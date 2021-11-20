@@ -1,21 +1,21 @@
 import axios from "../../lib/axios";
 
-export interface IRegisterBody {
+export interface RegisterBody {
   username: string;
   email: string;
   password: string;
 }
 
-export interface ILoginBody {
+export interface LoginBody {
   email: string;
   password: string;
 }
 
-export const registerRequest = async (body: IRegisterBody) => {
+export const registerRequest = async (body: RegisterBody) => {
   return await axios.post("/api/register", body);
 };
 
-export const loginRequest = async (body: ILoginBody) => {
+export const loginRequest = async (body: LoginBody) => {
   return await axios.post("/api/login", body);
 };
 

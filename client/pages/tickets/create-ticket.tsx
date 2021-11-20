@@ -4,15 +4,15 @@ import { useRouter } from "next/router";
 
 import { Meta } from "../../components/Meta";
 
-import { IDestination } from "../../interface";
+import { Destination } from "../../interface";
 import { getAvailableDestinationRequest } from "../../api/destination/destination.api";
 import { createTicketRequest } from "../../api/ticket/ticket.api";
 
-interface ICreateTicketProps {
-  destinations: IDestination[];
+interface CreateTicketProps {
+  destinations: Destination[];
 }
 
-const CreateTicket: React.FC<ICreateTicketProps> = ({ destinations }) => {
+const CreateTicket: React.FC<CreateTicketProps> = ({ destinations }) => {
   const router = useRouter();
   const [selectedItem, setSelectedItem] = useState(destinations[0].id);
 
