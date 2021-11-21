@@ -30,4 +30,4 @@ const SSR: React.FC<SSRProps> = ({ user }) => {
 };
 export default SSR;
 
-export const getServerSideProps: GetServerSideProps = withAuthUser({});
+export const getServerSideProps: GetServerSideProps = withAuthUser();

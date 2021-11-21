@@ -73,18 +73,10 @@ const getAuthUser = async (
   }
 };
 
-export const withAuthUser = ({ redirectTo = "" }, inner?: Function) => {
+export const withAuthUser = (inner?: Function) => {
   return async (context: GetServerSidePropsContext) => {
     const { req, res } = context;
     const authUser = await getAuthUser(req, res);
-
-    if (!authUser) {
-      if (redirectTo !== "") {
-        res.writeHead(307, { location: redirectTo });
-        res.end();
-      }
-      return { props: {} };
-    }
 
     return inner ? inner(context, authUser) : { props: { user: authUser } };
   };
