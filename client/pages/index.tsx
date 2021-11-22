@@ -34,6 +34,9 @@ export default Home;
 
 const mockFetchData = () => {
   return async (_context: GetServerSidePropsContext, authUser: AuthUser) => {
+    if (!authUser.isLoggedIn) {
+      return { props: { user: authUser, me: "Guest" } };
+    }
     return { props: { user: authUser, me: "hello" } };
   };
 };
