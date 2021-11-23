@@ -22,7 +22,7 @@ model User {
 
 enum TicketStatus {
   PRIVATE
-  AVALIABLE
+  AVAILABLE
   BOUGHT
 }
 
