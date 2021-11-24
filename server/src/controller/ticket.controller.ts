@@ -11,9 +11,7 @@ export const createTicketHandler = async (req: Request, res: Response) => {
   });
 
   if (!existedDestination) {
-    return res.status(400).send({
-      errorMessage: "The destination does not exist. Please choose an available one.",
-    });
+    return res.status(400).send({ errorMessage: "The destination does not exist. Please choose an available one." });
   }
 
   try {
@@ -75,8 +73,37 @@ export const deleteTicketHandler = async (req: Request, res: Response) => {
     });
     return res.sendStatus(200);
   } catch (error) {
-    return res.status(400).send({
-      errorMessage: "Something is not right. Please try a different one.",
+    return res.status(400).send({ errorMessage: "Something is not right. Please try a different one." });
+  }
+};
+
+export const sellTicketHandler = async (req: Request, res: Response) => {
+  const ticketId = req.params.ticketId;
+  const ticket = await prisma.ticket.findUnique({
+    where: {
+      id: ticketId,
+    },
+  });
+
+  if (!ticket) {
+    return res.status(400).send({ errorMessage: "The ticket does not exist. Please choose a different one." });
+  }
+
+  if (ticket.status !== "PRIVATE") {
+    return res.status(400).send({ errorMessage: "The ticket is not available for sells. Please choose a different one." });
+  }
+
+  try {
+    await prisma.ticket.update({
+      where: {
+        id: ticketId,
+      },
+      data: {
+        status: "AVAILABLE",
+      },
     });
+    return res.sendStatus(200);
+  } catch (error) {
+    return res.status(400).send({ errorMessage: "Something is not right during the transaction. Please try a different one." });
   }
 };
