@@ -107,3 +107,34 @@ export const sellTicketHandler = async (req: Request, res: Response) => {
     return res.status(400).send({ errorMessage: "Something is not right during the transaction. Please try a different one." });
   }
 };
+
+export const buyTicketHandler = async (req: Request, res: Response) => {
+  const ticketId = req.params.ticketId;
+  const ticket = await prisma.ticket.findUnique({
+    where: {
+      id: ticketId,
+    },
+  });
+
+  if (!ticket) {
+    return res.status(400).send({ errorMessage: "The ticket does not exist. Please choose a different one." });
+  }
+
+  if (ticket.status !== "AVAILABLE") {
+    return res.status(400).send({ errorMessage: "The ticket is not available for buys. Please choose a different one." });
+  }
+
+  try {
+    await prisma.ticket.update({
+      where: {
+        id: ticketId,
+      },
+      data: {
+        status: "PRIVATE",
+      },
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    return res.status(400).send({ errorMessage: "Something is not right during the transaction. Please try a different one." });
+  }
+};
