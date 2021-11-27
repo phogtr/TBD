@@ -12,6 +12,10 @@ export const createTicketRequest = async (body: CreateTicketBody) => {
   return await axios.post("/api/ticket/create-ticket", body);
 };
 
+export const sellTicketRequest = async (id: string) => {
+  return await axios.patch(`/api/ticket/${id}/sell`);
+};
+
 export const deleteTicketRequest = async (id: string) => {
   return await axios.delete(`/api/ticket/${id}/delete`);
 };

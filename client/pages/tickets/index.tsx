@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { Ticket } from "../../interface";
-import { deleteTicketRequest, getAllTicketsRequest } from "../../api/ticket/ticket.api";
+import { deleteTicketRequest, getAllTicketsRequest, sellTicketRequest } from "../../api/ticket/ticket.api";
 
 interface TicketsProps {
   tickets: Ticket[];
@@ -17,6 +17,11 @@ const Tickets: React.FC<TicketsProps> = ({ tickets }) => {
     router.push("/tickets");
   };
 
+  const sellTicketHandler = async (id: string) => {
+    await sellTicketRequest(id);
+    router.push("/tickets");
+  };
+
   return (
     <div>
       <h1>Tickets</h1>
@@ -25,6 +30,7 @@ const Tickets: React.FC<TicketsProps> = ({ tickets }) => {
           <div key={t.id}>
             Destination: {t.destination.destination}
             <button onClick={() => deleteTicketHandler(t.id)}>delete</button>
+            <button onClick={() => sellTicketHandler(t.id)}>sell</button>
           </div>
         ))}
       </div>
