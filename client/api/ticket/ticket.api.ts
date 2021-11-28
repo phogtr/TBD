@@ -8,6 +8,10 @@ export const getAllTicketsRequest = async () => {
   return await axios.get("/api/ticket/all-tickets");
 };
 
+export const getAvailableTicketsRequest = async () => {
+  return await axios.get("/api/ticket/available-tickets");
+};
+
 export const createTicketRequest = async (body: CreateTicketBody) => {
   return await axios.post("/api/ticket/create-ticket", body);
 };
