@@ -8,6 +8,8 @@ import {
   sellTicketHandler,
 } from "../controller/ticket.controller";
 
+import isAuth from "../middleware/isAuth";
+
 export default function (app: Express) {
   app.post("/api/ticket/create-ticket", createTicketHandler);
 
@@ -19,5 +21,5 @@ export default function (app: Express) {
 
   app.patch("/api/ticket/:ticketId/sell", sellTicketHandler);
 
-  app.patch("/api/ticket/:ticketId/buy", buyTicketHandler);
+  app.patch("/api/ticket/:ticketId/buy", isAuth, buyTicketHandler);
 }
