@@ -119,6 +119,9 @@ export const sellTicketHandler = async (req: Request, res: Response) => {
       },
       data: {
         status: "AVAILABLE",
+        user: {
+          disconnect: true,
+        },
       },
     });
     return res.sendStatus(200);
@@ -129,7 +132,6 @@ export const sellTicketHandler = async (req: Request, res: Response) => {
 
 export const buyTicketHandler = async (req: Request, res: Response) => {
   const userId = res.locals.user.userId;
-  console.log(userId);
 
   const ticketId = req.params.ticketId;
   const ticket = await prisma.ticket.findUnique({
@@ -162,7 +164,6 @@ export const buyTicketHandler = async (req: Request, res: Response) => {
     });
     return res.sendStatus(200);
   } catch (error) {
-    console.log(error);
     return res.status(400).send({ errorMessage: "Something is not right during the transaction. Please try a different one." });
   }
 };
