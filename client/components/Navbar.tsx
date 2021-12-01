@@ -26,6 +26,9 @@ export const Navbar: React.FC<NavbarProps> = ({ authUser }) => {
           <Link href="/tickets">Tickets</Link>
         </li>
         <li>
+          <Link href="/tickets/market">Market</Link>
+        </li>
+        <li>
           <Link href="/destinations">Destinations</Link>
         </li>
         <li>
