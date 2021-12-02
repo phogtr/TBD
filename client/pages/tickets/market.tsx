@@ -1,19 +1,30 @@
 import { GetServerSideProps } from "next";
 import React from "react";
+import { useRouter } from "next/router";
 
 import { Ticket } from "../../interface";
-import { getAvailableTicketsRequest } from "../../api/ticket/ticket.api";
+import { buyTicketRequest, getAvailableTicketsRequest } from "../../api/ticket/ticket.api";
 
 interface MarketProps {
   tickets: Ticket[];
 }
 
 const Market: React.FC<MarketProps> = ({ tickets }) => {
+  const router = useRouter();
+
+  const buyTicketHandler = async (id: string) => {
+    await buyTicketRequest(id);
+    router.push("/tickets/market");
+  };
+
   return (
     <div>
       <h1>Market</h1>
       {tickets.map((t) => (
-        <div key={t.id}>Destination: {t.destination.destination}</div>
+        <div key={t.id}>
+          Destination: {t.destination.destination}
+          <button onClick={() => buyTicketHandler(t.id)}>Buy</button>
+        </div>
       ))}
     </div>
   );
