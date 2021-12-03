@@ -5,6 +5,7 @@ import {
   deleteTicketHandler,
   getAllTicketsHandler,
   getAvailableTicketsHandler,
+  getUsersTicketsHandler,
   sellTicketHandler,
 } from "../controller/ticket.controller";
 
@@ -17,9 +18,11 @@ export default function (app: Express) {
 
   app.get("/api/ticket/available-tickets", getAvailableTicketsHandler);
 
-  app.delete("/api/ticket/:ticketId/delete", deleteTicketHandler);
+  app.get("/api/ticket/users-tickets", isAuth, getUsersTicketsHandler);
 
-  app.patch("/api/ticket/:ticketId/sell", sellTicketHandler);
+  app.patch("/api/ticket/:ticketId/sell", isAuth, sellTicketHandler);
 
   app.patch("/api/ticket/:ticketId/buy", isAuth, buyTicketHandler);
+
+  app.delete("/api/ticket/:ticketId/delete", deleteTicketHandler);
 }

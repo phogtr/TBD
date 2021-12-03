@@ -70,29 +70,31 @@ export const getAvailableTicketsHandler = async (_req: Request, res: Response) =
   }
 };
 
-export const deleteTicketHandler = async (req: Request, res: Response) => {
-  const ticketId = req.params.ticketId;
+export const getUsersTicketsHandler = async (_req: Request, res: Response) => {
+  const userId = res.locals.user.userId;
   try {
-    // const ticket = await prisma.ticket.findUnique({
-    //   where: {
-    //     id: ticketId,
-    //   },
-    // });
-
-    // if (!ticket) {
-    //   return res.status(400).send({
-    //     errorMessage: "Something is not right. Please try a different one.",
-    //   });
-    // }
-
-    await prisma.ticket.delete({
+    const usersTickets = await prisma.user.findMany({
       where: {
-        id: ticketId,
+        id: userId,
+      },
+      select: {
+        tickets: {
+          select: {
+            id: true,
+            destination: {
+              select: {
+                id: true,
+                destination: true,
+              },
+            },
+          },
+        },
       },
     });
-    return res.sendStatus(200);
+    return res.json(usersTickets);
   } catch (error) {
-    return res.status(400).send({ errorMessage: "Something is not right. Please try a different one." });
+    console.log("unexpected error: ", error);
+    return res.sendStatus(500);
   }
 };
 
@@ -165,5 +167,31 @@ export const buyTicketHandler = async (req: Request, res: Response) => {
     return res.sendStatus(200);
   } catch (error) {
     return res.status(400).send({ errorMessage: "Something is not right during the transaction. Please try a different one." });
+  }
+};
+
+export const deleteTicketHandler = async (req: Request, res: Response) => {
+  const ticketId = req.params.ticketId;
+  try {
+    // const ticket = await prisma.ticket.findUnique({
+    //   where: {
+    //     id: ticketId,
+    //   },
+    // });
+
+    // if (!ticket) {
+    //   return res.status(400).send({
+    //     errorMessage: "Something is not right. Please try a different one.",
+    //   });
+    // }
+
+    await prisma.ticket.delete({
+      where: {
+        id: ticketId,
+      },
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    return res.status(400).send({ errorMessage: "Something is not right. Please try a different one." });
   }
 };
