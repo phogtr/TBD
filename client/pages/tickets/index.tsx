@@ -1,9 +1,10 @@
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import React from "react";
 import { useRouter } from "next/router";
 
-import { Ticket } from "../../interface";
-import { deleteTicketRequest, getAllTicketsRequest, sellTicketRequest } from "../../api/ticket/ticket.api";
+import { AuthUser, Ticket } from "../../interface";
+import { deleteTicketRequest, getAllTicketsRequest, getUsersTicketsRequest, sellTicketRequest } from "../../api/ticket/ticket.api";
+import { withAuthUser } from "../../lib/withAuthUser";
 
 interface TicketsProps {
   tickets: Ticket[];
@@ -39,12 +40,16 @@ const Tickets: React.FC<TicketsProps> = ({ tickets }) => {
 };
 export default Tickets;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getAllTicketsRequest();
-
-  return {
-    props: {
-      tickets: res.data,
-    },
+const fetchUsersTickets = () => {
+  return async (context: GetServerSidePropsContext, authUser: AuthUser) => {
+    const { req } = context;
+    const res = await getUsersTicketsRequest(req);
+    return {
+      props: {
+        tickets: res.data.tickets,
+      },
+    };
   };
 };
+
+export const getServerSideProps: GetServerSideProps = withAuthUser(fetchUsersTickets());

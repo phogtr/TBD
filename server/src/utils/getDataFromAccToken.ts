@@ -5,4 +5,4 @@ export const getDataFromAccessToken = (req: Request) => {
   const token = req.cookies["accessToken"];
   const { payload } = verifyAccessToken(token);
   return payload;
-}
+};

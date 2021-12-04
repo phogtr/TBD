@@ -1,3 +1,4 @@
+import { IncomingMessage } from "http";
 import axios from "../../lib/axios";
 
 interface CreateTicketBody {
@@ -10,6 +11,10 @@ export const getAllTicketsRequest = async () => {
 
 export const getAvailableTicketsRequest = async () => {
   return await axios.get("/api/ticket/available-tickets");
+};
+
+export const getUsersTicketsRequest = async (req: IncomingMessage) => {
+  return await axios.get("/api/ticket/users-tickets", { headers: { cookie: req.headers.cookie } });
 };
 
 export const createTicketRequest = async (body: CreateTicketBody) => {

@@ -73,7 +73,7 @@ export const getAvailableTicketsHandler = async (_req: Request, res: Response) =
 export const getUsersTicketsHandler = async (_req: Request, res: Response) => {
   const userId = res.locals.user.userId;
   try {
-    const usersTickets = await prisma.user.findMany({
+    const usersTickets = await prisma.user.findUnique({
       where: {
         id: userId,
       },
