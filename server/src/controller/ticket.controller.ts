@@ -81,6 +81,7 @@ export const getUsersTicketsHandler = async (_req: Request, res: Response) => {
         tickets: {
           select: {
             id: true,
+            status: true,
             destination: {
               select: {
                 id: true,
@@ -121,9 +122,6 @@ export const sellTicketHandler = async (req: Request, res: Response) => {
       },
       data: {
         status: "AVAILABLE",
-        user: {
-          disconnect: true,
-        },
       },
     });
     return res.sendStatus(200);

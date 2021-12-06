@@ -12,4 +12,5 @@ export interface Destination {
 export interface Ticket {
   id: string;
   destination: Destination;
+  status: string;
 }
