@@ -1,15 +1,17 @@
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import React from "react";
 import { useRouter } from "next/router";
 
-import { Ticket } from "../../interface";
+import { AuthUser, Ticket } from "../../interface";
 import { buyTicketRequest, getAvailableTicketsRequest } from "../../api/ticket/ticket.api";
+import { withAuthUser } from "../../lib/withAuthUser";
 
 interface MarketProps {
   tickets: Ticket[];
+  user: AuthUser;
 }
 
-const Market: React.FC<MarketProps> = ({ tickets }) => {
+const Market: React.FC<MarketProps> = ({ tickets, user }) => {
   const router = useRouter();
 
   const buyTicketHandler = async (id: string) => {
@@ -23,7 +25,8 @@ const Market: React.FC<MarketProps> = ({ tickets }) => {
       {tickets.map((t) => (
         <div key={t.id}>
           Destination: {t.destination.destination}
-          <button onClick={() => buyTicketHandler(t.id)}>Buy</button>
+          {user.isLoggedIn && <button onClick={() => buyTicketHandler(t.id)}>Buy</button>}
+          {/* <button onClick={() => buyTicketHandler(t.id)}>Buy</button> */}
         </div>
       ))}
     </div>
@@ -31,12 +34,16 @@ const Market: React.FC<MarketProps> = ({ tickets }) => {
 };
 export default Market;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getAvailableTicketsRequest();
-
-  return {
-    props: {
-      tickets: res.data,
-    },
+const fetchAvailableTickets = () => {
+  return async (_context: GetServerSidePropsContext, authUser: AuthUser) => {
+    const res = await getAvailableTicketsRequest();
+    return {
+      props: {
+        tickets: res.data,
+        user: authUser,
+      },
+    };
   };
 };
+
+export const getServerSideProps: GetServerSideProps = withAuthUser(fetchAvailableTickets());
