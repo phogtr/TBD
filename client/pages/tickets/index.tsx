@@ -2,9 +2,11 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import React from "react";
 import { useRouter } from "next/router";
 
-import { AuthUser, Ticket } from "../../interface";
+import { TicketWrapper } from "../../components/Ticket/TicketWrapper";
+
 import { deleteTicketRequest, getAllTicketsRequest, getUsersTicketsRequest, sellTicketRequest } from "../../api/ticket/ticket.api";
 import { withAuthUser } from "../../lib/withAuthUser";
+import { AuthUser, Ticket } from "../../interface";
 
 interface TicketsProps {
   tickets: Ticket[];
@@ -26,23 +28,17 @@ const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
 
   return (
     <div>
-      <h1>Tickets</h1>
       {!user ? (
-        <div>
-          {tickets.map((t) => (
-            <div key={t.id}>
-              Destination: {t.destination.destination}
-              <button onClick={() => deleteTicketHandler(t.id)}>delete</button>
-              <button onClick={() => sellTicketHandler(t.id)}>sell</button>
-            </div>
-          ))}
-        </div>
+        <>
+          <TicketWrapper tickets={tickets} sellTicketHandler={sellTicketHandler} deleteTicketHandler={deleteTicketHandler} />
+        </>
       ) : (
         <>
           <h2>No data, please login</h2>
           {tickets.map((t) => (
             <div key={t.id}>
               Destination: {t.destination.destination}
+              <div>Status: {t.status}</div>
               <button onClick={() => deleteTicketHandler(t.id)}>delete</button>
             </div>
           ))}
@@ -73,7 +69,6 @@ const fetchUsersTickets = () => {
         tickets: res.data.tickets,
       },
     };
-    ``;
   };
 };
 

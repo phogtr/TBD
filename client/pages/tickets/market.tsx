@@ -26,7 +26,6 @@ const Market: React.FC<MarketProps> = ({ tickets, user }) => {
         <div key={t.id}>
           Destination: {t.destination.destination}
           {user.isLoggedIn && <button onClick={() => buyTicketHandler(t.id)}>Buy</button>}
-          {/* <button onClick={() => buyTicketHandler(t.id)}>Buy</button> */}
         </div>
       ))}
     </div>
