@@ -7,6 +7,7 @@ import { TicketWrapper } from "../../components/Ticket/TicketWrapper";
 import { deleteTicketRequest, getAllTicketsRequest, getUsersTicketsRequest, sellTicketRequest } from "../../api/ticket/ticket.api";
 import { withAuthUser } from "../../lib/withAuthUser";
 import { AuthUser, Ticket } from "../../interface";
+import { Tracking } from "../../components/Ticket/Tracking";
 
 interface TicketsProps {
   tickets: Ticket[];
@@ -31,6 +32,7 @@ const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
       {!user ? (
         <>
           <TicketWrapper tickets={tickets} sellTicketHandler={sellTicketHandler} deleteTicketHandler={deleteTicketHandler} />
+          <Tracking tickets={tickets} />
         </>
       ) : (
         <>
