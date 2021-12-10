@@ -14,8 +14,11 @@ interface TicketsProps {
   user?: AuthUser;
 }
 
+type TabOptions = "tickets" | "tracking";
+
 const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
   const router = useRouter();
+  const [currentTab, setCurrentTab] = React.useState<TabOptions>("tickets");
 
   const deleteTicketHandler = async (id: string) => {
     await deleteTicketRequest(id);
@@ -31,8 +34,15 @@ const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
     <div>
       {!user ? (
         <>
-          <TicketWrapper tickets={tickets} sellTicketHandler={sellTicketHandler} deleteTicketHandler={deleteTicketHandler} />
-          <Tracking tickets={tickets} />
+          <div>
+            <button onClick={() => setCurrentTab("tickets")}>Tickets</button>
+            <button onClick={() => setCurrentTab("tracking")}>Tracking</button>
+          </div>
+          {currentTab === "tickets" ? (
+            <TicketWrapper tickets={tickets} deleteTicketHandler={deleteTicketHandler} sellTicketHandler={sellTicketHandler} />
+          ) : (
+            <Tracking tickets={tickets} />
+          )}
         </>
       ) : (
         <>
