@@ -61,6 +61,7 @@ export const getAvailableTicketsHandler = async (_req: Request, res: Response) =
         id: true,
         destination: true,
         status: true,
+        userId: true,
       },
     });
     return res.json(availableTickets);
