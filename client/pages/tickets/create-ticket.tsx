@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Meta } from "../../components/Meta";
 
 import { Destination } from "../../interface";
-import { getAvailableDestinationRequest } from "../../api/destination/destination.api";
+import { getUnassignedDestinationRequest } from "../../api/destination/destination.api";
 import { createTicketRequest } from "../../api/ticket/ticket.api";
 
 interface CreateTicketProps {
@@ -60,7 +60,7 @@ const CreateTicket: React.FC<CreateTicketProps> = ({ destinations }) => {
 export default CreateTicket;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getAvailableDestinationRequest();
+  const res = await getUnassignedDestinationRequest();
 
   return {
     props: {

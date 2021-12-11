@@ -37,7 +37,7 @@ export const getAllDestinationsHandler = async (_req: Request, res: Response) =>
   }
 };
 
-export const getAvailableDestinationsHandler = async (_req: Request, res: Response) => {
+export const getUnassignedDestinationsHandler = async (_req: Request, res: Response) => {
   try {
     // const destinationCount = await prisma.destination.count({
     //   where: {
@@ -90,8 +90,6 @@ export const removeDestinationHandler = async (req: Request, res: Response) => {
     return res.sendStatus(200);
   } catch (error) {
     console.log("error: ", error);
-    return res
-      .status(400)
-      .send({ errorMessage: "Something is not right. Please try a different one." });
+    return res.status(400).send({ errorMessage: "Something is not right. Please try a different one." });
   }
 };

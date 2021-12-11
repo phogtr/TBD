@@ -8,8 +8,8 @@ export const getAllDestinationsRequest = async () => {
   return await axios.get("/api/destinations/all-destinations");
 };
 
-export const getAvailableDestinationRequest = async () => {
-  return await axios.get("/api/destinations/available-destinations");
+export const getUnassignedDestinationRequest = async () => {
+  return await axios.get("/api/destinations/unassigned-destinations");
 };
 
 export const newDestinationRequest = async (body: NewDestinationBody) => {
