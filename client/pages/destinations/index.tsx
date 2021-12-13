@@ -1,11 +1,7 @@
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  getAllDestinationsRequest,
-  // getAvailableDestinationRequest,
-  removeDestinationRequest,
-} from "../../api/destination/destination.api";
+import { getAllDestinationsRequest, removeDestinationRequest } from "../../api/destination/destination.api";
 import { Destination } from "../../interface";
 
 interface DestinationsProps {
@@ -27,7 +23,16 @@ const Destinations: React.FC<DestinationsProps> = ({ destinations }) => {
         {destinations.map((d) => (
           <div key={d.id}>
             {d.destination}
-            <button onClick={() => onClickRemoveHandler(d.id)}>remove</button>
+            {d.ticket?.id && d.ticket?.status === "AVAILABLE" && (
+              <button
+                onClick={() => {
+                  router.push("/tickets/market");
+                }}
+              >
+                Ticket Available
+              </button>
+            )}
+            {/* <button onClick={() => onClickRemoveHandler(d.id)}>remove</button> */}
           </div>
         ))}
       </div>
@@ -37,7 +42,6 @@ const Destinations: React.FC<DestinationsProps> = ({ destinations }) => {
 export default Destinations;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // const res = await getAvailableDestinationRequest();
   const res = await getAllDestinationsRequest();
 
   return {

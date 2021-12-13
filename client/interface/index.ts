@@ -7,10 +7,12 @@ export interface AuthUser {
 export interface Destination {
   id: string;
   destination: string;
+  ticket: Ticket;
 }
 
 export interface Ticket {
   id: string;
   destination: Destination;
   status: string;
+  userId: string;
 }

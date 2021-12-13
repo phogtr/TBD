@@ -28,6 +28,7 @@ export const getAllDestinationsHandler = async (_req: Request, res: Response) =>
       select: {
         id: true,
         destination: true,
+        ticket: true,
       },
     });
     return res.json(allDestinations);
