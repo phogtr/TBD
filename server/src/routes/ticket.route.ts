@@ -7,6 +7,7 @@ import {
   getAvailableTicketsHandler,
   getUsersTicketsHandler,
   sellTicketHandler,
+  updateTicketToPrivate,
 } from "../controller/ticket.controller";
 
 import isAuth from "../middleware/isAuth";
@@ -23,6 +24,8 @@ export default function (app: Express) {
   app.patch("/api/ticket/:ticketId/sell", isAuth, sellTicketHandler);
 
   app.patch("/api/ticket/:ticketId/buy", isAuth, buyTicketHandler);
+
+  app.patch("/api/ticket/:ticketId/toPrivate", isAuth, updateTicketToPrivate);
 
   app.delete("/api/ticket/:ticketId/delete", deleteTicketHandler);
 }
