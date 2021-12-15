@@ -4,9 +4,10 @@ import { Ticket } from "../../interface";
 
 interface TrackingProps {
   tickets: Ticket[];
+  cancelSellingTicketHandler: (id: string) => void;
 }
 
-export const Tracking: React.FC<TrackingProps> = ({ tickets }) => {
+export const Tracking: React.FC<TrackingProps> = ({ tickets, cancelSellingTicketHandler }) => {
   return (
     <div>
       <h1>Tracking</h1>
@@ -15,7 +16,7 @@ export const Tracking: React.FC<TrackingProps> = ({ tickets }) => {
           {t.status === "AVAILABLE" && (
             <>
               Destination: {t.destination.destination}
-              <button onClick={() => {}}>Cancel</button>
+              <button onClick={() => cancelSellingTicketHandler(t.id)}>Cancel</button>
             </>
           )}
         </div>

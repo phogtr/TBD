@@ -29,6 +29,10 @@ export const buyTicketRequest = async (id: string) => {
   return await axios.patch(`/api/ticket/${id}/buy`);
 };
 
+export const toPrivateTicketRequest = async (id: string) => {
+  return await axios.patch(`/api/ticket/${id}/toPrivate`);
+};
+
 export const deleteTicketRequest = async (id: string) => {
   return await axios.delete(`/api/ticket/${id}/delete`);
 };
