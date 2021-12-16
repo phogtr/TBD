@@ -2,14 +2,11 @@ import { GetServerSideProps } from "next";
 import React from "react";
 import { useRouter } from "next/router";
 
-import { TicketWrapper } from "../../components/Ticket/TicketWrapper";
-import { TrackingWrapper } from "../../components/Ticket/TrackingWrapper";
-
-import { deleteTicketRequest, sellTicketRequest, toPrivateTicketRequest } from "../../api/ticket/ticket.api";
+import { deleteTicketRequest, sellTicketRequest } from "../../api/ticket/ticket.api";
 import { withAuthUser } from "../../lib/withAuthUser";
 import { fetchUsersTickets } from "../../lib/fetchUsersTickets";
 
-import { AuthUser, TabOptions, Ticket } from "../../interface";
+import { AuthUser, Ticket } from "../../interface";
 
 interface TicketsProps {
   tickets: Ticket[];
@@ -18,7 +15,6 @@ interface TicketsProps {
 
 const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
   const router = useRouter();
-  const [currentTab, setCurrentTab] = React.useState<TabOptions>("tickets");
 
   const deleteTicketHandler = async (id: string) => {
     await deleteTicketRequest(id);
@@ -30,19 +26,12 @@ const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
     router.replace("/tickets");
   };
 
-  const cancelSellingTicketHandler = async (id: string) => {
-    await toPrivateTicketRequest(id);
-    router.replace("/tickets", "/tickets/tracking");
-  };
-
   const navigateToTickets = () => {
-    setCurrentTab("tickets");
     router.replace("/tickets");
   };
 
   const navigateToTracking = () => {
-    setCurrentTab("tracking");
-    router.replace("/tickets", "/tickets/tracking");
+    router.replace("/tickets/tracking");
   };
 
   return (
@@ -53,11 +42,16 @@ const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
             <button onClick={navigateToTickets}>Tickets</button>
             <button onClick={navigateToTracking}>Tracking</button>
           </div>
-          {currentTab === "tickets" ? (
-            <TicketWrapper tickets={tickets} deleteTicketHandler={deleteTicketHandler} sellTicketHandler={sellTicketHandler} />
-          ) : (
-            <TrackingWrapper tickets={tickets} cancelSellingTicketHandler={cancelSellingTicketHandler} />
-          )}
+          <div>
+            <h1>Tickets</h1>
+            {tickets.map((t) => (
+              <div key={t.id}>
+                Destination: {t.destination.destination}
+                {/* <button onClick={() => deleteTicketHandler(t.id)}>delete</button> */}
+                {t.status === "PRIVATE" && <button onClick={() => sellTicketHandler(t.id)}>sell</button>}
+              </div>
+            ))}
+          </div>
         </>
       ) : (
         <>
