@@ -11,14 +11,14 @@ import { fetchUsersTickets } from "../../lib/fetchUsersTickets";
 
 import { AuthUser, TabOptions, Ticket } from "../../interface";
 
-interface TicketsProps {
+interface TrackingProps {
   tickets: Ticket[];
   user?: AuthUser;
 }
 
-const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
+const Tracking: React.FC<TrackingProps> = ({ tickets }) => {
   const router = useRouter();
-  const [currentTab, setCurrentTab] = React.useState<TabOptions>("tickets");
+  const [currentTab, setCurrentTab] = React.useState<TabOptions>("tracking");
 
   const deleteTicketHandler = async (id: string) => {
     await deleteTicketRequest(id);
@@ -32,48 +32,34 @@ const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
 
   const cancelSellingTicketHandler = async (id: string) => {
     await toPrivateTicketRequest(id);
-    router.replace("/tickets", "/tickets/tracking");
+    router.replace("/tickets/tracking", "/tickets");
   };
 
   const navigateToTickets = () => {
     setCurrentTab("tickets");
-    router.replace("/tickets");
+    router.replace("/tickets/tracking", "/tickets");
   };
 
   const navigateToTracking = () => {
     setCurrentTab("tracking");
-    router.replace("/tickets", "/tickets/tracking");
+    router.replace("/tickets/tracking");
   };
 
   return (
     <div>
-      {!user ? (
-        <>
-          <div>
-            <button onClick={navigateToTickets}>Tickets</button>
-            <button onClick={navigateToTracking}>Tracking</button>
-          </div>
-          {currentTab === "tickets" ? (
-            <TicketWrapper tickets={tickets} deleteTicketHandler={deleteTicketHandler} sellTicketHandler={sellTicketHandler} />
-          ) : (
-            <TrackingWrapper tickets={tickets} cancelSellingTicketHandler={cancelSellingTicketHandler} />
-          )}
-        </>
+      <h2>page</h2>
+      <div>
+        <button onClick={navigateToTickets}>Tickets</button>
+        <button onClick={navigateToTracking}>Tracking</button>
+      </div>
+      {currentTab === "tickets" ? (
+        <TicketWrapper tickets={tickets} deleteTicketHandler={deleteTicketHandler} sellTicketHandler={sellTicketHandler} />
       ) : (
-        <>
-          <h2>No data, please login</h2>
-          {tickets.map((t) => (
-            <div key={t.id}>
-              Destination: {t.destination.destination}
-              <div>Status: {t.status}</div>
-              <button onClick={() => deleteTicketHandler(t.id)}>delete</button>
-            </div>
-          ))}
-        </>
+        <TrackingWrapper tickets={tickets} cancelSellingTicketHandler={cancelSellingTicketHandler} />
       )}
     </div>
   );
 };
-export default Tickets;
+export default Tracking;
 
 export const getServerSideProps: GetServerSideProps = withAuthUser(fetchUsersTickets());

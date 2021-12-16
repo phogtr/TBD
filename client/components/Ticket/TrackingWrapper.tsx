@@ -2,12 +2,12 @@ import React from "react";
 
 import { Ticket } from "../../interface";
 
-interface TrackingProps {
+interface TrackingWrapperProps {
   tickets: Ticket[];
-  cancelSellingTicketHandler: (id: string) => void;
+  cancelSellingTicketHandler: (id: string) => Promise<void>;
 }
 
-export const Tracking: React.FC<TrackingProps> = ({ tickets, cancelSellingTicketHandler }) => {
+export const TrackingWrapper: React.FC<TrackingWrapperProps> = ({ tickets, cancelSellingTicketHandler }) => {
   return (
     <div>
       <h1>Tracking</h1>

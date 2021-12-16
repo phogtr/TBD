@@ -16,3 +16,5 @@ export interface Ticket {
   status: string;
   userId: string;
 }
+
+export type TabOptions = "tickets" | "tracking";
