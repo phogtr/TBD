@@ -1,14 +1,17 @@
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import React from "react";
+
 import { getAllDestinationsRequest, removeDestinationRequest } from "../../api/destination/destination.api";
-import { Destination } from "../../interface";
+import { withAuthUser } from "../../lib/withAuthUser";
+import { AuthUser, Destination } from "../../interface";
 
 interface DestinationsProps {
   destinations: Destination[];
+  user?: AuthUser;
 }
 
-const Destinations: React.FC<DestinationsProps> = ({ destinations }) => {
+const Destinations: React.FC<DestinationsProps> = ({ destinations, user }) => {
   const router = useRouter();
 
   const onClickRemoveHandler = async (id: string) => {
@@ -22,8 +25,18 @@ const Destinations: React.FC<DestinationsProps> = ({ destinations }) => {
       <div>
         {destinations.map((d) => (
           <div key={d.id}>
-            {d.destination}
-            {d.ticket?.id && d.ticket?.status === "AVAILABLE" && (
+            {d.destination}{" "}
+            {d.ticket?.userId === user?.userId && d.ticket?.status === "PRIVATE" && (
+              <span>
+                <b>Owned</b>
+              </span>
+            )}
+            {d.ticket?.userId === user?.userId && d.ticket?.status === "AVAILABLE" && (
+              <span>
+                <b>Selling</b>
+              </span>
+            )}
+            {d.ticket?.userId !== user?.userId && d.ticket?.status === "AVAILABLE" && (
               <button
                 onClick={() => {
                   router.push("/tickets/market");
@@ -41,12 +54,16 @@ const Destinations: React.FC<DestinationsProps> = ({ destinations }) => {
 };
 export default Destinations;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getAllDestinationsRequest();
-
-  return {
-    props: {
-      destinations: res.data,
-    },
+const fetchAllDestinations = () => {
+  return async (_context: GetServerSidePropsContext, authUser: AuthUser) => {
+    const res = await getAllDestinationsRequest();
+    return {
+      props: {
+        destinations: res.data,
+        user: authUser,
+      },
+    };
   };
 };
+
+export const getServerSideProps: GetServerSideProps = withAuthUser(fetchAllDestinations());
