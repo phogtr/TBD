@@ -101,9 +101,12 @@ export const getUsersTicketsHandler = async (_req: Request, res: Response) => {
 };
 
 export const sellTicketHandler = async (req: Request, res: Response) => {
+  const userId = res.locals.user.userId;
+
   const ticketId = req.params.ticketId;
-  const ticket = await prisma.ticket.findUnique({
+  const ticket = await prisma.ticket.findFirst({
     where: {
+      userId,
       id: ticketId,
     },
   });
