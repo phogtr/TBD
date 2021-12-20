@@ -22,6 +22,7 @@ export const fetchUsersTickets = () => {
     return {
       props: {
         tickets: res.data.tickets,
+        user: authUser,
       },
     };
   };

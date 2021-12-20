@@ -36,7 +36,7 @@ const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
 
   return (
     <div>
-      {!user ? (
+      {user?.isLoggedIn ? (
         <>
           <div>
             <button onClick={navigateToTickets}>Tickets</button>
