@@ -13,7 +13,7 @@ import {
 import isAuth from "../middleware/isAuth";
 
 export default function (app: Express) {
-  app.post("/api/ticket/create-ticket", createTicketHandler);
+  app.post("/api/ticket/create-ticket", isAuth, createTicketHandler);
 
   app.get("/api/ticket/all-tickets", getAllTicketsHandler);
 

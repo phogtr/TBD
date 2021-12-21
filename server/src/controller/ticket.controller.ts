@@ -3,6 +3,7 @@ import prisma from "../db/prisma";
 
 export const createTicketHandler = async (req: Request, res: Response) => {
   const { destinationId }: { destinationId: string } = req.body;
+  const userId = res.locals.user.userId;
 
   const existedDestination = await prisma.destination.findUnique({
     where: {
@@ -20,6 +21,12 @@ export const createTicketHandler = async (req: Request, res: Response) => {
         destination: {
           connect: {
             id: existedDestination.id,
+          },
+        },
+        status: "PRIVATE",
+        user: {
+          connect: {
+            id: userId,
           },
         },
       },
