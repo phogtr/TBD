@@ -5,16 +5,17 @@ import { useRouter } from "next/router";
 import { MarketWrapper } from "../../components/Ticket/MarketWrapper";
 import { TrackingWrapper } from "../../components/Ticket/TrackingWrapper";
 
-import { buyTicketRequest, getAvailableTicketsRequest, toPrivateTicketRequest } from "../../api/ticket/ticket.api";
+import { buyTicketRequest, getAvailableTicketsRequest, getUsersTicketsRequest, toPrivateTicketRequest } from "../../api/ticket/ticket.api";
 import { withAuthUser } from "../../lib/withAuthUser";
 import { AuthUser, Ticket } from "../../interface";
 
 interface MarketProps {
-  tickets: Ticket[];
+  marketTickets: Ticket[];
+  userTickets: Ticket[];
   user: AuthUser;
 }
 
-const Market: React.FC<MarketProps> = ({ tickets, user }) => {
+const Market: React.FC<MarketProps> = ({ marketTickets, userTickets, user }) => {
   const router = useRouter();
   const [currentTab, setCurrentTab] = React.useState("market");
 
@@ -43,35 +44,28 @@ const Market: React.FC<MarketProps> = ({ tickets, user }) => {
       <button onClick={navigateToMarket}>Market</button>
       <button onClick={navigateToTracking}>Tracking</button>
       {currentTab === "market" ? (
-        <MarketWrapper tickets={tickets} user={user} buyTicketHandler={buyTicketHandler} />
+        <MarketWrapper tickets={marketTickets} user={user} buyTicketHandler={buyTicketHandler} />
       ) : (
-        <TrackingWrapper tickets={tickets} cancelSellingTicketHandler={cancelSellingTicketHandler} />
+        <TrackingWrapper tickets={userTickets} cancelSellingTicketHandler={cancelSellingTicketHandler} />
       )}
     </div>
-
-    // <div>
-    //   <h1>Market</h1>
-    //   {tickets.map((t) => (
-    //     <div key={t.id}>
-    //       Destination: {t.destination.destination}
-    //       {user.isLoggedIn && t.userId !== user.userId && <button onClick={() => buyTicketHandler(t.id)}>Buy</button>}
-    //     </div>
-    //   ))}
-    // </div>
   );
 };
 export default Market;
 
-const fetchAvailableTickets = () => {
-  return async (_context: GetServerSidePropsContext, authUser: AuthUser) => {
-    const res = await getAvailableTicketsRequest();
+const fetchTickets = () => {
+  return async (context: GetServerSidePropsContext, authUser: AuthUser) => {
+    const { req } = context;
+    const ticket = await getAvailableTicketsRequest();
+    const user = await getUsersTicketsRequest(req);
     return {
       props: {
-        tickets: res.data,
+        marketTickets: ticket.data,
+        userTickets: user.data.tickets,
         user: authUser,
       },
     };
   };
 };
 
-export const getServerSideProps: GetServerSideProps = withAuthUser(fetchAvailableTickets());
+export const getServerSideProps: GetServerSideProps = withAuthUser(fetchTickets());
