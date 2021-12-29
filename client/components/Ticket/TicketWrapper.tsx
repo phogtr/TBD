@@ -14,7 +14,7 @@ export const TicketWrapper: React.FC<TicketWrapperProps> = ({ tickets, sellTicke
       {tickets.map((t) => (
         <div key={t.id}>
           Destination: {t.destination.destination}
-          <button onClick={() => deleteTicketHandler(t.id)}>delete</button>
+          {/* <button onClick={() => deleteTicketHandler(t.id)}>delete</button> */}
           {t.status === "PRIVATE" && <button onClick={() => sellTicketHandler(t.id)}>sell</button>}
         </div>
       ))}

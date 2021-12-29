@@ -19,11 +19,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const registerBody = {
-            username,
-            email,
-            password,
-          };
+          const registerBody = { username, email, password };
           try {
             const res = await registerRequest(registerBody);
             console.log(res.data);
@@ -35,37 +31,19 @@ const Register: React.FC<RegisterProps> = ({}) => {
         <div>
           <label>
             Username:
-            <input
-              name="username"
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+            <input name="username" type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
           </label>
         </div>
         <div>
           <label>
             Email:
-            <input
-              name="email"
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <input name="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
         </div>
         <div>
           <label>
             Password:
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <input name="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
         </div>
         <button type="submit">Register</button>

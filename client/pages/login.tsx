@@ -20,10 +20,7 @@ const Login: React.FC<LoginProps> = ({}) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const loginBody = {
-            email,
-            password,
-          };
+          const loginBody = { email, password };
           try {
             await loginRequest(loginBody);
             router.push("/");
@@ -35,25 +32,13 @@ const Login: React.FC<LoginProps> = ({}) => {
         <div>
           <label>
             Email:
-            <input
-              name="email"
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <input name="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
         </div>
         <div>
           <label>
             Password:
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <input name="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
         </div>
         <button type="submit">Login</button>

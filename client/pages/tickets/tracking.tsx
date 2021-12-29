@@ -36,7 +36,7 @@ const Tracking: React.FC<TrackingProps> = ({ tickets }) => {
         <button onClick={navigateToTracking}>Tracking</button>
       </div>
       <div>
-        <h1>Tracking</h1>
+        <h1>Tracking Page</h1>
         {tickets.map((t) => (
           <div key={t.id}>
             {t.status === "AVAILABLE" && (
