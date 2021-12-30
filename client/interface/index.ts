@@ -17,4 +17,4 @@ export interface Ticket {
   userId: string;
 }
 
-export type TabOptions = "tickets" | "tracking";
+export type TabOptions = "tickets" | "tracking" | "market";

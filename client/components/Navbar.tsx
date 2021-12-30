@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({ authUser }) => {
           <Link href="/auth">Auth</Link>
         </li> */}
         <li>
-          <Link href="/auth/ssr/ssr">Auth SSR</Link>
+          <Link href="/auth/ssr">Auth SSR</Link>
         </li>
       </ul>
     </nav>
