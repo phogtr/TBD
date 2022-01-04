@@ -57,14 +57,26 @@ const fetchTickets = () => {
   return async (context: GetServerSidePropsContext, authUser: AuthUser) => {
     const { req } = context;
     const ticket = await getAvailableTicketsRequest();
-    const user = await getUsersTicketsRequest(req);
-    return {
-      props: {
-        marketTickets: ticket.data,
-        userTickets: user.data.tickets,
-        user: authUser,
-      },
-    };
+
+    if (authUser.isLoggedIn === true) {
+      const user = await getUsersTicketsRequest(req);
+
+      return {
+        props: {
+          marketTickets: ticket.data,
+          userTickets: user.data.tickets,
+          user: authUser,
+        },
+      };
+    } else {
+      return {
+        props: {
+          marketTickets: ticket.data,
+          userTickets: [],
+          user: authUser,
+        },
+      };
+    }
   };
 };
 
