@@ -37,7 +37,7 @@ const mockFetchData = () => {
     if (!authUser.isLoggedIn) {
       return { props: { user: authUser, me: "Guest" } };
     }
-    return { props: { user: authUser, me: "hello" } };
+    return { props: { user: authUser, me: authUser.username } };
   };
 };
 
