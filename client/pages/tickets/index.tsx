@@ -56,13 +56,6 @@ const Tickets: React.FC<TicketsProps> = ({ tickets, user }) => {
       ) : (
         <>
           <h2>No data, please login</h2>
-          {tickets.map((t) => (
-            <div key={t.id}>
-              Destination: {t.destination.destination}
-              <div>Status: {t.status}</div>
-              <button onClick={() => deleteTicketHandler(t.id)}>delete</button>
-            </div>
-          ))}
         </>
       )}
     </div>

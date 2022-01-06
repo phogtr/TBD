@@ -22,9 +22,11 @@ export const Navbar: React.FC<NavbarProps> = ({ authUser }) => {
         <li>
           <Link href="/">Home</Link>
         </li>
-        <li>
-          <Link href="/tickets">Tickets</Link>
-        </li>
+        {authUser.isLoggedIn && (
+          <li>
+            <Link href="/tickets">Tickets</Link>
+          </li>
+        )}
         <li>
           <Link href="/tickets/market">Market</Link>
         </li>
