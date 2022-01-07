@@ -41,8 +41,12 @@ const Market: React.FC<MarketProps> = ({ marketTickets, userTickets, user }) => 
 
   return (
     <div>
-      <button onClick={navigateToMarket}>Market</button>
-      <button onClick={navigateToTracking}>Tracking</button>
+      {user.isLoggedIn && (
+        <>
+          <button onClick={navigateToMarket}>Market</button>
+          <button onClick={navigateToTracking}>Tracking</button>
+        </>
+      )}
       {currentTab === "market" ? (
         <MarketWrapper tickets={marketTickets} user={user} buyTicketHandler={buyTicketHandler} />
       ) : (
